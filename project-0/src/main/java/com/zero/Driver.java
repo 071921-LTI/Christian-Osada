@@ -1,5 +1,9 @@
 package com.zero;
 
-public class Driver {
+import com.zero.controller.MenuScreen;
 
+public class Driver {
+	public static void main(String[] args) {
+		MenuScreen.display();
+	}
 }

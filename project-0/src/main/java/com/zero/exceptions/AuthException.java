@@ -1,5 +1,5 @@
 package com.zero.exceptions;
 
-public class AuthException {
+public class AuthException extends Exception {
 
 }
