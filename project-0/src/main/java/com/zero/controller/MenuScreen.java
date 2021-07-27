@@ -21,52 +21,55 @@ public class MenuScreen {
 		String input; 
 		
 		do {
-		System.out.println("Enter: \n1 to login\n2 to register\n3 to exit");
+		System.out.println("Enter: \n1. To login\n2. To register\n3. To exit\n");
 		input = sc.nextLine();
 		String username;
 		String password;
 		
 		switch(input) {
 		case "1"://This is the login logic
-			System.out.println("Enter username:");
+			System.out.println("Enter username: ");
 			username = sc.nextLine();
 
 			try {
 				User user = us.getUser(username);
-				System.out.println("Enter password:");
+				System.out.println("Enter password: ");
 				password = sc.nextLine();
 				User toBeChecked = new User(username, password);
 
 				if(as.login(toBeChecked)) {
-				System.out.println("Successfully logged in!");
-				input = "3";
+				System.out.println("Successfully logged in!\n");
+				
+				//Test pull up
+				ItemInteractionScreen.display("2");
+				
 				} else {
-					System.out.println("Wrong credentials");
+					System.out.println("Wrong credentials!\n");
 				}
 			} catch (UserNotFoundException e) {
-				System.out.println("User was not found.");
+				System.out.println("User was not found.\n");
 			} catch (AuthException e) {
-				System.out.println("Wrong credentials");
+				System.out.println("Wrong credentials!\n");
 			}
 			break;
 		case "2"://This is the registration logic
-			System.out.println("Enter a new username:");
+			System.out.println("Enter a new username: ");
 			username = sc.nextLine();
-			System.out.println("Enter a new password:");
+			System.out.println("Enter a new password: ");
 			password = sc.nextLine();
 			
 			if(us.addUser(new User(username, password))) {
-				System.out.println("Register successful!");
+				System.out.println("Registration successful!\n");
 			}else {
-				System.out.println("Unable to accomplish operation.");
+				System.out.println("Unable to accomplish operation.\n");
 			}
 			break;
 		case "3"://This is the exit logic
-				System.out.println("Goodbye!");
+				System.out.println("Goodbye!\n");
 				System.exit(0);
 			break;
 			default://The message that shows if the users input isn't one of the expected three
-				System.out.println("Invalid input");
+				System.out.println("Invalid input.\n");
 		}
 		} while(!input.equals("3"));
 	}
