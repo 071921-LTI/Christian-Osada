@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 public class Item implements Serializable{
 
+	private int itemId;
 	private String itemName;
 	private String itemPrice;
+	private String availability;
 	
 	public Item() {
 		super();
@@ -28,7 +30,18 @@ public class Item implements Serializable{
 	public void setPrice(String itemPrice) {
 		this.itemPrice = itemPrice;
 	}
-
+	public int getItemId() {
+		return itemId;
+	}
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+	public String getAvailability() {
+		return availability;
+	}
+	public void setAvailability(String availability) {
+		this.availability = availability;
+	}
 	
 	@Override
 	public int hashCode() {

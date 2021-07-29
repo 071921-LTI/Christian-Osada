@@ -7,7 +7,7 @@ public class ItemInteractionScreen extends MenuScreen{
 
 		String input;
 		switch(permssionLevel) {
-		case "1"://Normal user options
+		case "1"://Customer menu
 			do {
 				System.out.println("Items in shop:\n");
 				//TODO: Some sort of loop/iterable to print out all AVAILABLE items and their details from the shop list
@@ -34,12 +34,11 @@ public class ItemInteractionScreen extends MenuScreen{
 				case "4"://Exit menu
 					//TODO: Exit menu
 					return;
-					//break;
 				default:
 					System.out.println("Invalid input.\n");
 				}
 			} while (true);
-		case "2"://Employee options
+		case "2"://Employee menu
 			do {
 				System.out.println("Items in shop:\n");
 				//TODO: Some sort of loop/iterable to print out ALL items and their details from the shop list
