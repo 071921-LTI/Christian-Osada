@@ -1,11 +1,12 @@
-package com.zero.daos;
+package com.zero.services;
 
 import java.util.List;
 import com.zero.exceptions.ItemNotFoundException;
 import com.zero.models.Item;
-import com.zero.models.Offer;
 
-public interface ItemDao {
+public interface ItemService {
+	
+	//Checks if inputed item exists
 	public abstract Item getItemById(int id) throws ItemNotFoundException;
 	public abstract List<Item> getItems();
 	public abstract boolean addItem(Item item);

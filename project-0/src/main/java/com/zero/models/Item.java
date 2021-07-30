@@ -6,28 +6,31 @@ public class Item implements Serializable{
 
 	private int itemId;
 	private String itemName;
-	private String itemPrice;
-	private String availability;
+	private int itemPrice;
+	private String ownedBy;
 	
-	public Item() {
+	public Item(int itemId) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.itemId = itemId;
 	}
-	public Item(String itemName, String itemPrice) {
+	public Item(int itemId, String itemName, int itemPrice, String ownedBy) {
 		super();
+		this.itemId = itemId;
 		this.itemName = itemName;
 		this.itemPrice = itemPrice;
+		this.ownedBy = ownedBy;
 	}
+	
 	public String getItemName() {
 		return itemName;
 	}
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public String getPrice() {
+	public int getPrice() {
 		return itemPrice;
 	}
-	public void setPrice(String itemPrice) {
+	public void setPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
 	}
 	public int getItemId() {
@@ -36,19 +39,21 @@ public class Item implements Serializable{
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-	public String getAvailability() {
-		return availability;
+	public String getOwnedBy() {
+		return ownedBy;
 	}
-	public void setAvailability(String availability) {
-		this.availability = availability;
+	public void setOwnedBy(String ownedBy) {
+		this.ownedBy = ownedBy;
 	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + itemId;
 		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
-		result = prime * result + ((itemPrice == null) ? 0 : itemPrice.hashCode());
+		result = prime * result + itemPrice;
+		result = prime * result + ((ownedBy == null) ? 0 : ownedBy.hashCode());
 		return result;
 	}
 	@Override
@@ -60,24 +65,25 @@ public class Item implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
+		if (itemId != other.itemId)
+			return false;
 		if (itemName == null) {
 			if (other.itemName != null)
 				return false;
 		} else if (!itemName.equals(other.itemName))
 			return false;
-		if (itemPrice == null) {
-			if (other.itemPrice != null)
+		if (itemPrice != other.itemPrice)
+			return false;
+		if (ownedBy == null) {
+			if (other.ownedBy != null)
 				return false;
-		} else if (!itemPrice.equals(other.itemPrice))
+		} else if (!ownedBy.equals(other.ownedBy))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "[Item Name = " + itemName + ", Item Price = " + itemPrice + "]";
-	}
-	
-	public String toFileString() {
-		return itemName + ":" + itemPrice;
+		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", availability="
+				+ ownedBy + "]";
 	}
 }

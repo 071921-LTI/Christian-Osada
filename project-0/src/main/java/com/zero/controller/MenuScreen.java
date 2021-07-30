@@ -7,6 +7,7 @@ import com.zero.services.AuthServiceImpl;
 import com.zero.services.UserService;
 import com.zero.services.UserServiceImpl;
 import com.zero.exceptions.AuthException;
+import com.zero.exceptions.UserNameTakenException;
 import com.zero.exceptions.UserNotFoundException;
 
 
@@ -32,16 +33,16 @@ public class MenuScreen {
 			username = sc.nextLine();
 
 			try {
-				User user = us.getUser(username);
+				User user = us.getUserByName(username);
 				System.out.println("Enter password: ");
 				password = sc.nextLine();
-				User toBeChecked = new User(username, password);
+				User toBeChecked = new User(1, username, password, 1);//Placeholder digits for now
 
 				if(as.login(toBeChecked)) {
 				System.out.println("Successfully logged in!\n");
 				
 				//Test pull up
-				ItemInteractionScreen.display("2");
+				CustomerScreen.display(1);
 				
 				} else {
 					System.out.println("Wrong credentials!\n");
@@ -58,11 +59,7 @@ public class MenuScreen {
 			System.out.println("Enter a new password: ");
 			password = sc.nextLine();
 			
-			if(us.addUser(new User(username, password))) {
-				System.out.println("Registration successful!\n");
-			}else {
-				System.out.println("Unable to accomplish operation.\n");
-			}
+			us.addUser(new User(1, username, password, 1));
 			break;
 		case "3"://This is the exit logic
 				System.out.println("Goodbye!\n");
