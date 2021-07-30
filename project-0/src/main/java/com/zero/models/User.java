@@ -8,9 +8,13 @@ public class User implements Serializable{
 	private int userId;
 	private String username;
 	private String password;
-	private String permissionLevel;
+	private int permissionLevel;
 	
-	public User(int userId, String username, String password, String permissionLevel) {
+	public User(int userId) {
+		super();
+		this.userId = userId;
+	}
+	public User(int userId, String username, String password, int permissionLevel) {
 		super();
 		this.userId = userId;
 		this.username = username;
@@ -24,10 +28,10 @@ public class User implements Serializable{
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public String getPermissionLevel() {
+	public int getPermissionLevel() {
 		return permissionLevel;
 	}
-	public void setPermissionLevel(String permissionLevel) {
+	public void setPermissionLevel(int permissionLevel) {
 		this.permissionLevel = permissionLevel;
 	}
 	public String getUsername() {
@@ -48,7 +52,7 @@ public class User implements Serializable{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((permissionLevel == null) ? 0 : permissionLevel.hashCode());
+		result = prime * result + permissionLevel;
 		result = prime * result + userId;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -67,10 +71,7 @@ public class User implements Serializable{
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (permissionLevel == null) {
-			if (other.permissionLevel != null)
-				return false;
-		} else if (!permissionLevel.equals(other.permissionLevel))
+		if (permissionLevel != other.permissionLevel)
 			return false;
 		if (userId != other.userId)
 			return false;
