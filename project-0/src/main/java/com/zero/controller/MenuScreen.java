@@ -43,7 +43,7 @@ public class MenuScreen {
 			username = sc.nextLine();
 
 			try {
-				User user = us.getUserByName(username);
+				us.getUserByName(username);
 				System.out.println("Enter password: ");
 				password = sc.nextLine();
 				User toBeChecked = new User(1, username, password, 1);//Placeholder digits for now
@@ -51,9 +51,8 @@ public class MenuScreen {
 				if(as.login(toBeChecked)) {
 				System.out.println("Successfully logged in!\n");
 				int currentUserId = us.getUserByName(username).getUserId();
-				
-				CustomerScreen.display(1, currentUserId);
-				
+				int currentUserPermLevel = us.getUserByName(username).getPermissionLevel();
+				CustomerScreen.display(currentUserPermLevel, currentUserId);
 				} else {
 					System.out.println("Wrong credentials.\n");
 				}
@@ -66,7 +65,6 @@ public class MenuScreen {
 		case "2"://This is the registration logic
 			System.out.println("Enter a new username: ");
 			username = sc.nextLine();
-
 			
 			try {
 				us.getUserByName(username);

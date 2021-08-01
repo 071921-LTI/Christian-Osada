@@ -64,18 +64,16 @@ public class ItemPostgres implements ItemDao {
 	@Override
 	public boolean addItem(Item item) {//Add an item to the items database table
 		int id = -1;
-		String sql = "insert into items (item_name, item_price, owned_by) values (?,?,?) returning item_id;";
+		String sql = "insert into items (item_name, item_price) values (?,?) returning item_id;";
 		
 		try (Connection con = ConnectionUtil.getConnectionFromEnv()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, item.getItemName());
 			ps.setInt(2, item.getPrice());
-			ps.setInt(3, item.getOwnedBy());
-			
 			ResultSet rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				id = rs.getInt("user_id");
+				id = rs.getInt("item_id");
 			}
 			return true;
 		} catch (SQLException e) {
