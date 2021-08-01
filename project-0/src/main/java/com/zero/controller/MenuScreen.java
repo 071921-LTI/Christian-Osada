@@ -19,8 +19,18 @@ public class MenuScreen {
 	
 	//Login menu logic, can either login, register a new account or exit the program
 	public static void display() {
-		String input; 
 		
+		try {
+			us.getUserByName("default");
+		} catch (UserNotFoundException e1) {
+			// TODO Auto-generated catch block
+			int placeholder = 0;
+			int perm = 2;
+			User user = new User(placeholder, "default", "default", perm);
+			us.addUser(user);
+		}
+		
+		String input; 
 		do {
 		System.out.println("Enter: \n1. To login\n2. To register\n3. To exit\n");
 		input = sc.nextLine();
@@ -40,26 +50,34 @@ public class MenuScreen {
 
 				if(as.login(toBeChecked)) {
 				System.out.println("Successfully logged in!\n");
+				int currentUserId = us.getUserByName(username).getUserId();
 				
-				//Test pull up
-				CustomerScreen.display(1);
+				CustomerScreen.display(1, currentUserId);
 				
 				} else {
-					System.out.println("Wrong credentials!\n");
+					System.out.println("Wrong credentials.\n");
 				}
 			} catch (UserNotFoundException e) {
 				System.out.println("User was not found.\n");
 			} catch (AuthException e) {
-				System.out.println("Wrong credentials!\n");
+				System.out.println("Wrong credentials.\n");
 			}
 			break;
 		case "2"://This is the registration logic
 			System.out.println("Enter a new username: ");
 			username = sc.nextLine();
-			System.out.println("Enter a new password: ");
-			password = sc.nextLine();
+
 			
-			us.addUser(new User(1, username, password, 1));
+			try {
+				us.getUserByName(username);
+				System.out.println("Username is taken.");
+			} catch (UserNotFoundException e1) {
+				System.out.println("Enter a new password: ");
+				password = sc.nextLine();
+				us.addUser(new User(1, username, password, 1));
+				System.out.println("Account successfully registered.");
+			}
+			
 			break;
 		case "3"://This is the exit logic
 				System.out.println("Goodbye!\n");

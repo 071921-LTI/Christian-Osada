@@ -80,7 +80,7 @@ public class Offer {
 
 	@Override
 	public String toString() {
-		return "Offer [offerId=" + offerId + ", offererId=" + offererId + ", itemIdOffer=" + itemIdOffer
-			 + ", status=" + status + "]";
+		return "Offer Id = " + offerId + ", Offerer Id = " + offererId + ", Item Id = " + itemIdOffer
+			 + ", Offer Status = " + status;
 	}
 }

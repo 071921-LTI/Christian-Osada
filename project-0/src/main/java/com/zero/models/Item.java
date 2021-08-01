@@ -7,13 +7,13 @@ public class Item implements Serializable{
 	private int itemId;
 	private String itemName;
 	private int itemPrice;
-	private String ownedBy;
+	private int ownedBy;
 	
 	public Item(int itemId) {
 		super();
 		this.itemId = itemId;
 	}
-	public Item(int itemId, String itemName, int itemPrice, String ownedBy) {
+	public Item(int itemId, String itemName, int itemPrice, int ownedBy) {
 		super();
 		this.itemId = itemId;
 		this.itemName = itemName;
@@ -39,10 +39,10 @@ public class Item implements Serializable{
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-	public String getOwnedBy() {
+	public int getOwnedBy() {
 		return ownedBy;
 	}
-	public void setOwnedBy(String ownedBy) {
+	public void setOwnedBy(int ownedBy) {
 		this.ownedBy = ownedBy;
 	}
 	
@@ -53,7 +53,7 @@ public class Item implements Serializable{
 		result = prime * result + itemId;
 		result = prime * result + ((itemName == null) ? 0 : itemName.hashCode());
 		result = prime * result + itemPrice;
-		result = prime * result + ((ownedBy == null) ? 0 : ownedBy.hashCode());
+		result = prime * result + ownedBy;
 		return result;
 	}
 	@Override
@@ -74,16 +74,13 @@ public class Item implements Serializable{
 			return false;
 		if (itemPrice != other.itemPrice)
 			return false;
-		if (ownedBy == null) {
-			if (other.ownedBy != null)
-				return false;
-		} else if (!ownedBy.equals(other.ownedBy))
+		if (ownedBy != other.ownedBy)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Item [itemId=" + itemId + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", availability="
-				+ ownedBy + "]";
+		return "Item Id = " + itemId + ", Item Name = " + itemName + ", Price = " + itemPrice + ", Owner = "
+				+ ownedBy;
 	}
 }
