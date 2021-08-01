@@ -24,9 +24,9 @@ public class ItemPostgres implements ItemDao {
 			if(rs.next()) {
 				int itemId = rs.getInt("item_id");
 				String itemName = rs.getString("item_name");
-				int itemPrice = rs.getInt("item_id");
-				String availability = rs.getString("owned_by");
-				item = new Item(itemId, itemName, itemPrice, availability);
+				int itemPrice = rs.getInt("item_price");
+				int owner = rs.getInt("owned_by");
+				item = new Item(itemId, itemName, itemPrice, owner);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -47,9 +47,9 @@ public class ItemPostgres implements ItemDao {
 			while(rs.next()) {
 				int itemId = rs.getInt("item_id");
 				String itemName = rs.getString("item_name");
-				int itemPrice = rs.getInt("item_id");
-				String availability = rs.getString("owned_by");
-				Item item = new Item(itemId, itemName, itemPrice, availability);
+				int itemPrice = rs.getInt("item_price");
+				int owner = rs.getInt("owned_by");
+				Item item = new Item(itemId, itemName, itemPrice, owner);
 
 				items.add(item);
 			}
@@ -70,7 +70,7 @@ public class ItemPostgres implements ItemDao {
 			PreparedStatement ps = con.prepareStatement(sql);
 			ps.setString(1, item.getItemName());
 			ps.setInt(2, item.getPrice());
-			ps.setString(3, item.getOwnedBy());
+			ps.setInt(3, item.getOwnedBy());
 			
 			ResultSet rs = ps.executeQuery();
 			

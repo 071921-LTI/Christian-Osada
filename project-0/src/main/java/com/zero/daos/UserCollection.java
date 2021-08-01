@@ -15,7 +15,7 @@ public class UserCollection implements UserDao {
 	public UserCollection(){
 		users = new ArrayList<>();
 	}
-
+	
 	@Override
 	public User getUserByName(String name) throws UserNotFoundException {
 		User user = ud.getUserByName(name);
