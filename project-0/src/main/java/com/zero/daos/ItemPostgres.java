@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.zero.models.Item;
 import com.zero.util.ConnectionUtil;
 
 public class ItemPostgres implements ItemDao {
-
+	private static Logger log = LogManager.getRootLogger();
 	@Override
 	public Item getItemById(int id) {//Retrieve an item from the database item table based on the given ID
 		String sql = "select * from items where item_id = ?";
@@ -29,8 +33,7 @@ public class ItemPostgres implements ItemDao {
 				item = new Item(itemId, itemName, itemPrice, owner);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to find item with Id " + id);
 		}
 		return item;
 	}
@@ -55,8 +58,7 @@ public class ItemPostgres implements ItemDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to find any items.");
 		}
 		return items;
 	}
@@ -77,8 +79,7 @@ public class ItemPostgres implements ItemDao {
 			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to add given item with information " + item);
 		}
 		return false;
 	}
@@ -95,8 +96,7 @@ public class ItemPostgres implements ItemDao {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to update given item with Id " + id + " to owner with id " + ownerId);
 		}
 		return false;
 	}
@@ -112,8 +112,7 @@ public class ItemPostgres implements ItemDao {
 			
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to delete item with Id " + id);
 		}
 		return rowsChanged;
 	}
