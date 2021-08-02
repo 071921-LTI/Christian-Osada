@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.zero.models.Offer;
 import com.zero.util.ConnectionUtil;
 
 public class OfferPostgres implements OfferDao {
-
+	private static Logger log = LogManager.getRootLogger();
 	@Override
 	public Offer getOfferById(int id) {//Retrieve a offer from the database offer table based on the given ID
 		String sql = "select * from offers where offer_id = ?";
@@ -30,8 +34,7 @@ public class OfferPostgres implements OfferDao {
 				offer = new Offer(offerId, offererId, itemId, status);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to find offer with Id " + id);
 		}
 		return offer;
 	}
@@ -56,15 +59,13 @@ public class OfferPostgres implements OfferDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to find any offers.");
 		}
 		return offers;
 	}
 
 	@Override
 	public boolean addOffer(Offer offer) {//Add an offer to the offers database table
-//		int id = -1;
 		String sql = "insert into offers (offerer_id, item_id, status) values (?,?,?) returning offer_id;";
 		
 		try (Connection con = ConnectionUtil.getConnectionFromEnv()){
@@ -74,14 +75,9 @@ public class OfferPostgres implements OfferDao {
 			ps.setString(3, offer.getStatus());
 			
 			ResultSet rs = ps.executeQuery();
-			
-//			if(rs.next()) {
-//				id = rs.getInt("offer_id");
-//			}
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to add given offer with information " + offer);
 		}
 		return false;
 	}
@@ -98,8 +94,7 @@ public class OfferPostgres implements OfferDao {
 			ps.executeUpdate();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to update given offer with Id " + offerId + " to status " + status);
 		}
 		return false;
 	}
@@ -115,8 +110,7 @@ public class OfferPostgres implements OfferDao {
 			
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to delete offer with Id " + id);
 		}
 		return rowsChanged;
 	}

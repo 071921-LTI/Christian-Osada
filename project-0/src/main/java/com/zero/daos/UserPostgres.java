@@ -10,12 +10,16 @@ import com.zero.exceptions.UserNameTakenException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.zero.exceptions.UserNotFoundException;
 import com.zero.models.User;
 import com.zero.util.ConnectionUtil;
 
 public class UserPostgres implements UserDao {
-
+	private static Logger log = LogManager.getRootLogger();
 	@Override
 	public User getUserById(int id) throws UserNotFoundException {//Retrieve an user from the database user table based on the given ID
 		String sql = "select * from users where user_id = ?";
@@ -34,8 +38,7 @@ public class UserPostgres implements UserDao {
 				user = new User(userId, username, password, permissionLevel);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to find user with Id " + id);
 		}
 		return user;
 	}
@@ -57,9 +60,7 @@ public class UserPostgres implements UserDao {
 				user = new User(userId, username, password, permissionLevel);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
+			log.error("Failed to find user with name " + name);
 		}
 		
 		return user;
@@ -85,8 +86,7 @@ public class UserPostgres implements UserDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to find any users.");
 		}
 		return users;
 	}
@@ -110,7 +110,7 @@ public class UserPostgres implements UserDao {
 			}
 			return true;
 	    }  catch (SQLException e)  {
-			e.printStackTrace();
+			log.error("Failed to add given user with information " + user);
 	    }
 		return false;
 	}
@@ -126,8 +126,7 @@ public class UserPostgres implements UserDao {
 			
 			rowsChanged = ps.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Failed to delete user with Id " + id);
 		}
 		return rowsChanged;
 	}

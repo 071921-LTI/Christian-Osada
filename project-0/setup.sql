@@ -21,4 +21,4 @@ create table if not exists offers(
 
 insert into users (username, pass, perm_level) values ('testUser', 'testPassword ', 1);
 insert into items (item_name, item_price, owned_by) values ('testItem', '$50 ', 1);
-insert into offers (offerer_id, item_id, status) values (2, 1, 'default');
+insert into offers (offerer_id, item_id, status) values (2, 1, 'N/A');
