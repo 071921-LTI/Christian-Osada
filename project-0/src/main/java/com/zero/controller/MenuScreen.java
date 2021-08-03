@@ -1,8 +1,6 @@
 package com.zero.controller;
 
 import java.util.Scanner;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.zero.models.User;
 import com.zero.services.AuthService;
 import com.zero.services.AuthServiceImpl;
@@ -14,7 +12,6 @@ import com.zero.exceptions.UserNotFoundException;
 
 public class MenuScreen {
 	
-	private static Logger log = LogManager.getRootLogger();
 	static Scanner sc = new Scanner(System.in);
 	static UserService us = new UserServiceImpl();
 	static AuthService as = new AuthServiceImpl();
@@ -54,7 +51,6 @@ public class MenuScreen {
 				System.out.println("Successfully logged in!\n");
 				int currentUserId = us.getUserByName(username).getUserId();
 				int currentUserPermLevel = us.getUserByName(username).getPermissionLevel();
-				log.info("Account with username " + username + " logged in.");
 				CustomerScreen.display(currentUserPermLevel, currentUserId);
 				} else {
 					System.out.println("Wrong credentials.\n");
@@ -77,7 +73,6 @@ public class MenuScreen {
 				password = sc.nextLine();
 				us.addUser(new User(1, username, password, 1));
 				System.out.println("Account successfully registered.");
-				log.info("Account with username " + username + " was registered.");
 			}
 			
 			break;
