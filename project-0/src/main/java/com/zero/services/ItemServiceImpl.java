@@ -15,6 +15,10 @@ public class ItemServiceImpl implements ItemService{
 		return itd.getItemById(id);
 	}
 	@Override
+	public Item getItemByName(String name) throws ItemNotFoundException {
+		return itd.getItemByName(name);
+	}
+	@Override
 	public List<Item> getItems() {
 		return itd.getItems();
 	}

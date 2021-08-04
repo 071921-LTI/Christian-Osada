@@ -8,6 +8,7 @@ public interface ItemService {
 	
 	//Checks if inputed item exists
 	public abstract Item getItemById(int id) throws ItemNotFoundException;
+	public abstract Item getItemByName(String name) throws ItemNotFoundException;
 	public abstract List<Item> getItems();
 	public abstract boolean addItem(Item item);
 	public abstract int deleteItem(int id) throws ItemNotFoundException;

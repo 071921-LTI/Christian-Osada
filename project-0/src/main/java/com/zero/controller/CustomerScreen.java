@@ -2,8 +2,12 @@ package com.zero.controller;
 
 import java.util.Iterator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.zero.exceptions.ItemNotFoundException;
 import com.zero.exceptions.OfferNotFoundException;
+import com.zero.exceptions.UserNotFoundException;
 import com.zero.models.Item;
 import com.zero.models.Offer;
 import com.zero.services.ItemService;
@@ -13,6 +17,7 @@ import com.zero.services.OfferServiceImpl;
 
 public class CustomerScreen extends MenuScreen{
 	
+	private static Logger log = LogManager.getRootLogger();
 	static ItemService itd = new ItemServiceImpl();
 	static OfferService of = new OfferServiceImpl();
 
@@ -45,7 +50,10 @@ public class CustomerScreen extends MenuScreen{
 				}
 			} while (true);
 		case 2://Employee menu
-			EmployeeScreen.display();
+			EmployeeScreen.display(permssionLevel, currentUserId);
+			return;
+		case 3://Manager menu
+			EmployeeScreen.display(permssionLevel, currentUserId);
 			return;
 		}
 	}
@@ -62,7 +70,7 @@ public class CustomerScreen extends MenuScreen{
 		}
 		
 		System.out.println("\nEnter: \n1. To make an offer for an item \n2. "
-				+ "To view the status of your current offers \n3. "
+				+ "To view the status of your current offers and pay for accepted ones\n3. "
 				+ "To view owned items\n4. To return to the login screen \n");
 	}
 	
@@ -78,11 +86,14 @@ public class CustomerScreen extends MenuScreen{
 				Offer offer = new Offer (0, currentUserId, input, "N/A");
 				of.addOffer(offer);
 				System.out.println("Offer successfully made.\n");
+				log.info("Customer " + us.getUserById(currentUserId).getUsername() + " made an offer for item with Id " + offer.getItemIdOffer());
 			} else {
 				System.out.println("Invalid item ID.\n");
 			}
 		} catch (ItemNotFoundException e) {
 			System.out.println("Invalid item ID.\n");
+		} catch (UserNotFoundException e) {
+			log.info("Log failed to find user account with Id " + currentUserId);
 		}
 	}
 	
@@ -111,6 +122,7 @@ public class CustomerScreen extends MenuScreen{
 				try {//If chosen offer is status is 'Accepted', update owner Id of the offers associated item to the current users and delete the offer
 					if (of.getOfferById(input).getOffererId() == currentUserId && of.getOfferById(input).getStatus().equals("Accepted")) {
 						itd.updateItemOwner(of.getOfferById(input).getItemIdOffer(), currentUserId);
+						log.info("Customer " + us.getUserById(currentUserId).getUsername() + " now owns the item that has Id " + of.getOfferById(input).getItemIdOffer());
 						of.deleteOffer(input);
 						System.out.println("\nItem successfully paid for, you are now the owner.\n");
 					} else {
@@ -118,6 +130,8 @@ public class CustomerScreen extends MenuScreen{
 					}
 				} catch (OfferNotFoundException | ItemNotFoundException e) {
 					System.out.println("Offer/Item not found.");
+				} catch (UserNotFoundException e) {
+					log.info("Log failed to find user account with Id " + currentUserId);
 				}
 				break;
 			case 2://To go back to the shop screen
