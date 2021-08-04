@@ -16,8 +16,17 @@ public class ItemCollection implements ItemDao {
 		items = new ArrayList<>();
 	}
 
+	
 	public Item getItemById(int id) throws ItemNotFoundException {
 		Item item = itd.getItemById(id);
+		if(item == null) {
+			throw new ItemNotFoundException();
+		}
+		return item;
+	}
+	@Override
+	public Item getItemByName(String name) throws ItemNotFoundException {
+		Item item = itd.getItemByName(name);
 		if(item == null) {
 			throw new ItemNotFoundException();
 		}

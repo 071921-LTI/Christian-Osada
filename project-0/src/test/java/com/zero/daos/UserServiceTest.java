@@ -20,7 +20,7 @@ import com.zero.services.UserServiceImpl;
 public class UserServiceTest {
 
 	@Mock
-	private UserDao itd;
+	private UserDao ud;
 	
 	@InjectMocks
 	private UserServiceImpl us;
@@ -28,9 +28,9 @@ public class UserServiceTest {
 	@Test
 	public void getExistantUserByIdTest() {
 		User expected = new User(1, "username1", "password1", 1);
-		User actualResult = new User(1, "username1", "password1", 1);
+		User actualResult = null;
 			try {
-				Mockito.when(us.getUserById(1)).thenReturn(actualResult);
+				Mockito.when(ud.getUserById(1)).thenReturn(new User(1, "username1", "password1", 1));
 				actualResult = us.getUserById(1);
 			} catch (UserNotFoundException e) {
 			}
@@ -39,9 +39,9 @@ public class UserServiceTest {
 	@Test
 	public void getNonExistantUserByIdTest() {
 		User expected = new User(1, "username1", "password1", 1);
-		User actualResult = new User(2, "username2", "password2", 2);
+		User actualResult = null;
 			try {
-				Mockito.when(us.getUserById(1)).thenReturn(actualResult);
+				Mockito.when(ud.getUserById(1)).thenReturn(new User(2, "username2", "password2", 2));
 				actualResult = us.getUserById(1);
 			} catch (UserNotFoundException e) {
 			}
@@ -52,9 +52,9 @@ public class UserServiceTest {
 	@Test
 	public void getExistantUserByNameTest() {
 		User expected = new User(1, "username1", "password1", 1);
-		User actualResult = new User(1, "username1", "password1", 1);
+		User actualResult = null;
 			try {
-				Mockito.when(us.getUserByName("username1")).thenReturn(actualResult);
+				Mockito.when(ud.getUserByName("username1")).thenReturn(new User(1, "username1", "password1", 1));
 				actualResult = us.getUserByName("username1");
 			} catch (UserNotFoundException e) {
 			}
@@ -63,9 +63,9 @@ public class UserServiceTest {
 	@Test
 	public void getNonExistantUserByNameTest() {
 		User expected = new User(1, "username1", "password1", 1);
-		User actualResult = new User(2, "username1", "password2", 2);
+		User actualResult = null;
 			try {
-				Mockito.when(us.getUserByName("username1")).thenReturn(actualResult);
+				Mockito.when(ud.getUserByName("username1")).thenReturn(new User(2, "username1", "password2", 2));
 				actualResult = us.getUserByName("username1");
 			} catch (UserNotFoundException e) {
 			}
@@ -75,35 +75,31 @@ public class UserServiceTest {
 	
 	@Test
 	public void getExistantItems() {
-		User expected1 = new User(1, "username1", "password1", 1);
-		User expected2 = new User(2, "username2", "password2", 2);
 		List<User> expectedUsers = new ArrayList<>();
-		expectedUsers.add(expected1);
-		expectedUsers.add(expected2);
+		expectedUsers.add(new User(1, "username1", "password1", 1));
+		expectedUsers.add(new User(2, "username2", "password2", 2));
 		
-		User actualResult1 = new User(1, "username1", "password1", 1);
-		User actualResult2 = new User(2, "username2", "password2", 2);
+		List<User> returnThis = new ArrayList<>();
+		returnThis.add(new User(1, "username1", "password1", 1));
+		returnThis.add(new User(2, "username2", "password2", 2));
+		
 		List<User> actualUsers = new ArrayList<>();
-		actualUsers.add(actualResult1);
-		actualUsers.add(actualResult2);
-		Mockito.when(us.getUsers()).thenReturn(actualUsers);
+		Mockito.when(ud.getUsers()).thenReturn(returnThis);
 		actualUsers = us.getUsers();
 		assertEquals(expectedUsers, actualUsers);
 	}
 	@Test
 	public void getNonExistantItems() {
-		User expected1 = new User(1, "username1", "password1", 1);
-		User expected2 = new User(2, "username2", "password2", 2);
 		List<User> expectedUsers = new ArrayList<>();
-		expectedUsers.add(expected1);
-		expectedUsers.add(expected2);
+		expectedUsers.add(new User(1, "username1", "password1", 1));
+		expectedUsers.add(new User(2, "username2", "password2", 2));
 		
-		User actualResult1 = new User(1, "username1", "password1", 1);
-		User actualResult2 = new User(3, "username3", "password3", 3);
+		List<User> returnThis = new ArrayList<>();
+		returnThis.add(new User(1, "username1", "password1", 1));
+		returnThis.add(new User(3, "username3", "password3", 3));
+		
 		List<User> actualUsers = new ArrayList<>();
-		actualUsers.add(actualResult1);
-		actualUsers.add(actualResult2);
-		Mockito.when(us.getUsers()).thenReturn(actualUsers);
+		Mockito.when(ud.getUsers()).thenReturn(returnThis);
 		actualUsers = us.getUsers();
 		assertNotEquals(expectedUsers, actualUsers);
 	}
@@ -113,7 +109,7 @@ public class UserServiceTest {
 	public void getAddItem() {
 		boolean expected = true;
 		User user = new User(1, "username", "password", 1);
-		Mockito.when(us.addUser(user)).thenReturn(true);
+		Mockito.when(ud.addUser(user)).thenReturn(true);
 		boolean actualResult = us.addUser(user);
 		assertEquals(expected, actualResult);
 	}
@@ -122,9 +118,9 @@ public class UserServiceTest {
 	@Test
 	public void deleteExistantOffer() {
 		int expected = -1;
-		int actualResult = -1;
+		int actualResult = 0;
 		try {
-			Mockito.when(us.deleteUser(1)).thenReturn(actualResult);
+			Mockito.when(ud.deleteUser(1)).thenReturn(-1);
 			actualResult = us.deleteUser(1);
 		} catch (UserNotFoundException e) {
 		}
@@ -133,9 +129,9 @@ public class UserServiceTest {
 	@Test
 	public void deleteNonExistantOffer() {
 		int expected = 0;
-		int actualResult = 0;
+		int actualResult = -1;
 		try {
-			Mockito.when(us.deleteUser(1)).thenReturn(actualResult);
+			Mockito.when(ud.deleteUser(1)).thenReturn(0);
 			actualResult = us.deleteUser(1);
 		} catch (UserNotFoundException e) {
 		}

@@ -1,6 +1,12 @@
 package com.zero.controller;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.zero.models.User;
 import com.zero.services.AuthService;
 import com.zero.services.AuthServiceImpl;
@@ -12,26 +18,16 @@ import com.zero.exceptions.UserNotFoundException;
 
 public class MenuScreen {
 	
+	private static Logger log = LogManager.getRootLogger();
 	static Scanner sc = new Scanner(System.in);
 	static UserService us = new UserServiceImpl();
 	static AuthService as = new AuthServiceImpl();
 	
 	//Login menu logic, can either login, register a new account or exit the program
 	public static void display() {
-		
-		try {
-			us.getUserByName("default");
-		} catch (UserNotFoundException e1) {
-			// TODO Auto-generated catch block
-			int placeholder = 0;
-			int perm = 2;
-			User user = new User(placeholder, "default", "default", perm);
-			us.addUser(user);
-		}
-		
 		String input; 
 		do {
-		System.out.println("Enter: \n1. To login\n2. To register\n3. To exit\n");
+		System.out.println("Welcome to the pawn shop!\nEnter: \n1. To login\n2. To register\n3. To exit\n");
 		input = sc.nextLine();
 		String username;
 		String password;
@@ -49,6 +45,7 @@ public class MenuScreen {
 
 				if(as.login(toBeChecked)) {
 				System.out.println("Successfully logged in!\n");
+				log.info(username + " logged in");
 				int currentUserId = us.getUserByName(username).getUserId();
 				int currentUserPermLevel = us.getUserByName(username).getPermissionLevel();
 				CustomerScreen.display(currentUserPermLevel, currentUserId);
@@ -59,6 +56,7 @@ public class MenuScreen {
 				System.out.println("User was not found.\n");
 			} catch (AuthException e) {
 				System.out.println("Wrong credentials.\n");
+				log.info("There was a failed attempt to log into " + username + "'s account");
 			}
 			break;
 		case "2"://This is the registration logic
@@ -73,6 +71,7 @@ public class MenuScreen {
 				password = sc.nextLine();
 				us.addUser(new User(1, username, password, 1));
 				System.out.println("Account successfully registered.");
+				log.info(username + " has been registered as an account");
 			}
 			
 			break;
@@ -86,3 +85,4 @@ public class MenuScreen {
 		} while(!input.equals("3"));
 	}
 }
+

@@ -11,7 +11,10 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.zero.exceptions.ItemNotFoundException;
+import com.zero.exceptions.UserNotFoundException;
 import com.zero.models.Item;
+import com.zero.models.User;
 import com.zero.util.ConnectionUtil;
 
 public class ItemPostgres implements ItemDao {
@@ -35,6 +38,29 @@ public class ItemPostgres implements ItemDao {
 		} catch (SQLException e) {
 			log.error("Failed to find item with Id " + id);
 		}
+		return item;
+	}
+	
+	@Override
+	public Item getItemByName(String name) throws ItemNotFoundException {//Retrieve an user from the database user table based on the given ID
+		String sql = "select * from items where item_name = ?";
+		Item item = null;
+		try(Connection con = ConnectionUtil.getConnectionFromEnv()){
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, name); // 1 refers to first ? to parameterize
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				int itemId = rs.getInt("item_id");
+				String itemName = rs.getString("item_name");
+				int itemPrice = rs.getInt("item_price");
+				int owner = rs.getInt("owned_by");
+				item = new Item(itemId, itemName, itemPrice, owner);
+			}
+		} catch (SQLException e) {
+			log.error("Failed to find item with name " + name);
+		}
+		
 		return item;
 	}
 

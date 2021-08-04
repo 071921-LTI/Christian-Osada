@@ -16,6 +16,7 @@ public class UserCollection implements UserDao {
 		users = new ArrayList<>();
 	}
 	
+	
 	@Override
 	public User getUserByName(String name) throws UserNotFoundException {
 		User user = ud.getUserByName(name);
@@ -24,7 +25,6 @@ public class UserCollection implements UserDao {
 		}
 		return user;
 	}
-
 	@Override
 	public User getUserById(int id) throws UserNotFoundException {
 		User user = ud.getUserById(id);
@@ -33,23 +33,20 @@ public class UserCollection implements UserDao {
 		}
 		throw new UserNotFoundException();
 	}
-
 	@Override
 	public List<User> getUsers() {
 		users = ud.getUsers();
 		return users;
 	}
-
 	@Override
 	public boolean addUser(User user){
 			return ud.addUser(user);
 	}
-
 	@Override
 	public int deleteUser(int id) throws UserNotFoundException {
 		if(ud.getUserById(id).getUserId() == id) {
 			ud.deleteUser(id);
-			return deleteUser(id);
+			return ud.deleteUser(id);
 		}
 		throw new UserNotFoundException();
 	}
