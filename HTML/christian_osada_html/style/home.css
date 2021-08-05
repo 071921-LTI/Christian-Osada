@@ -1,0 +1,6 @@
+html{
+    padding: 1.5%;
+    margin: 0%;
+    background-image: radial-gradient( rgb(194, 200, 255) 0%, rgb(35, 15, 219) 50%, rgb(0, 37, 102) 100%);
+    min-height: 100%;
+}
