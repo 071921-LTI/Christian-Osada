@@ -29,7 +29,7 @@ create table if not exists ers_reimbursement (
 	reimb_resolved TIMESTAMP,
 	reimb_description VARCHAR(250) not null,
 	reimb_author INTEGER references ers_users(ers_users_id) not null,
-	reimb_resolver INTEGER references ers_users(ers_users_id),
+	reimb_resolver INTEGER references ers_users(ers_users_id) not null,
 	reimb_status_id INTEGER references ers_reimbursement_status(reimb_status_id) not null,
 	reimb_type_id INTEGER references ers_reimbursement_type(reimb_type_id) not null
 );

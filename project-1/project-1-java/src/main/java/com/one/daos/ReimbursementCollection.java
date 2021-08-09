@@ -1,38 +1,45 @@
-package com.one.services;
+package com.one.daos;
 
 import java.util.List;
 
-import com.one.daos.ReimbursementCollection;
-import com.one.daos.ReimbursementDao;
 import com.one.exceptions.ReimbursementNotFoundException;
 import com.one.models.Reimbursement;
 
-public class ReimbursementServiceImpl implements ReimbursementService {
+public class ReimbursementCollection implements ReimbursementDao {
 
-	private ReimbursementDao rd = new ReimbursementCollection();
-	
 	@Override
 	public Reimbursement getReimbursementById(int id) throws ReimbursementNotFoundException {
-		return rd.getReimbursementById(id);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public List<Reimbursement> getReimbursements() {
-		return rd.getReimbursements();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public List<Reimbursement> getReimbursementsbyAuthor(String author) {
-		return rd.getReimbursementsbyAuthor(author);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 	@Override
 	public boolean addReimbursement(Reimbursement reimbursement) {
-		return rd.addReimbursement(reimbursement);
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public boolean deleteReimbursement(int id) throws ReimbursementNotFoundException {
-		return rd.deleteReimbursement(id);
+		// TODO Auto-generated method stub
+		return false;
 	}
+
 	@Override
 	public boolean updateReimbursement(Reimbursement reimbursement) throws ReimbursementNotFoundException {
-		return rd.updateReimbursement(reimbursement);
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
