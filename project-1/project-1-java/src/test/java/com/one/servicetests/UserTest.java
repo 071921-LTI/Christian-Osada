@@ -15,20 +15,28 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.one.daos.UserDao;
 import com.one.daos.UserPostgres;
-import com.one.exceptions.UserNotFoundException;
 import com.one.models.User;
 import com.one.util.ConnectionUtil;
+import com.one.exceptions.UserNotFoundException;
+import com.one.services.UserServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class UserTest {
 
-	private UserDao ud = new UserPostgres();
+	@Mock
+	private UserDao ud;
+	
+	@InjectMocks
+	private UserServiceImpl us;
+	
 	private static MockedStatic<ConnectionUtil> mockedConnectionUtil;
 	private static Connection connection;
 
@@ -99,9 +107,15 @@ public class UserTest {
 		}
 	}
 	
-//	@Test
-//	public void getByIdExists() throws UserNotFoundException {
-//		User expected = new User(1, "Admin", "password", "Enrollment Admin");
-//		assertEquals(ud.getUserById(1), expected);
-//	}
+	@Test
+	public void getByIdExists() throws UserNotFoundException {
+		User expected = new User(1, "username", "password", "firstName", "lastName", "email", "role");
+		User actualResult = null;
+		try {
+			Mockito.when(ud.getUserById(1)).thenReturn(new User(1, "username", "password", "firstName", "lastName", "email", "role"));
+			actualResult = us.getUserById(1);
+		} catch (UserNotFoundException e) {
+		}
+	assertEquals(expected, actualResult);
+	}
 }

@@ -1,34 +1,45 @@
-package com.one.services;
+package com.one.daos;
 
 import java.util.List;
 
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.User;
-import com.one.daos.UserCollection;
-import com.one.daos.UserDao;
 
+public class UserCollection implements UserDao {
 
-
-public class UserServiceImpl implements UserServices{
-	
-	private UserDao ud = new UserCollection();
-
+	@Override
 	public User getUserById(int id) throws UserNotFoundException {
-		return ud.getUserById(id);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
 	public User getUserByUsername(String username) throws UserNotFoundException {
-		return ud.getUserByUsername(username);
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
 	public List<User> getUsers() {
-		return ud.getUsers();
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	@Override
 	public boolean addUser(User user) {
-		return ud.addUser(user);
+		// TODO Auto-generated method stub
+		return false;
 	}
+
+	@Override
 	public boolean deleteUser(int id) throws UserNotFoundException {
-		return ud.deleteUser(id);
+		// TODO Auto-generated method stub
+		return false;
 	}
+
+	@Override
 	public boolean updateUser(User user) throws UserNotFoundException {
-		return ud.updateUser(user);
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
