@@ -20,8 +20,8 @@ public class ReimbursementServiceImpl implements ReimbursementService {
 		return rd.getReimbursements();
 	}
 	@Override
-	public List<Reimbursement> getReimbursementsbyAuthor(String author) {
-		return rd.getReimbursementsbyAuthor(author);
+	public List<Reimbursement> getReimbursementsbyAuthor(int id) {
+		return rd.getReimbursementsbyAuthor(id);
 	}
 	@Override
 	public boolean addReimbursement(Reimbursement reimbursement) {
