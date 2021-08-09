@@ -20,7 +20,7 @@ public class ReimbursementCollection implements ReimbursementDao {
 	}
 
 	@Override
-	public List<Reimbursement> getReimbursementsbyAuthor(String author) {
+	public List<Reimbursement> getReimbursementsbyAuthor(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
