@@ -19,7 +19,7 @@ create table if not exists ers_users (
 	user_first_name VARCHAR(100) not null,
 	user_last_name VARCHAR(100) not null,
 	user_email VARCHAR(150) not null,
-	user_role_id INTEGER references ers_user_roles(ers_user_role_id) not null
+	user_role_id VARCHAR(250) references ers_user_roles(ers_user_role_id) not null
 );
 
 create table if not exists ers_reimbursement (
@@ -29,7 +29,7 @@ create table if not exists ers_reimbursement (
 	reimb_resolved TIMESTAMP,
 	reimb_description VARCHAR(250) not null,
 	reimb_author INTEGER references ers_users(ers_users_id) not null,
-	reimb_resolver INTEGER references ers_users(ers_users_id) not null,
+	reimb_resolver INTEGER references ers_users(ers_users_id),
 	reimb_status_id INTEGER references ers_reimbursement_status(reimb_status_id) not null,
 	reimb_type_id INTEGER references ers_reimbursement_type(reimb_type_id) not null
 );

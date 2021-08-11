@@ -11,6 +11,6 @@ public interface UserDao {
 	public abstract User getUserByUsername(String username) throws UserNotFoundException;
 	public abstract List<User> getUsers();
 	public abstract boolean addUser(User user);
-	public abstract boolean deleteUser(int id) throws UserNotFoundException;
+	public abstract boolean deleteUser(User user) throws UserNotFoundException;
 	public abstract boolean updateUser(User user) throws UserNotFoundException;
 }
