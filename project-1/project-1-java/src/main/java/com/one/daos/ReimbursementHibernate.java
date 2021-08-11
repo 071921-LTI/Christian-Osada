@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.one.exceptions.ReimbursementNotFoundException;
 import com.one.models.Reimbursement;
@@ -36,7 +37,9 @@ public class ReimbursementHibernate implements ReimbursementDao{
 	public List<Reimbursement> getReimbursementsbyAuthor(User user) {
 		List<Reimbursement> r = null;
 		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
-			r = ss.createQuery("FROM Reimbursement R WHERE R.author = " + user, Reimbursement.class).list();
+	        Query query = ss.createQuery("FROM Reimbursement WHERE user = :user");
+	        query.setParameter("user", user);
+	        r = query.list();
 		}
 		return r;
 	}
