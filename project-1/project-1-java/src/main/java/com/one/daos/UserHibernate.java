@@ -2,8 +2,11 @@ package com.one.daos;
 
 import java.util.List;
 
+
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.User;
@@ -24,7 +27,10 @@ public class UserHibernate implements UserDao{
 	public User getUserByUsername(String username) throws UserNotFoundException {
 		User u = null;
 		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
-			u = ss.get(User.class, username);
+	        Query query = ss.createQuery("FROM User WHERE username = :username");
+	        query.setParameter("username", username);
+	        List list = query.list();
+	        u = (User) list.get(0);
 		}
 		return u;
 	}
