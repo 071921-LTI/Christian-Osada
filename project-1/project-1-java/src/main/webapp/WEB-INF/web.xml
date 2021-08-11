@@ -6,12 +6,12 @@
 	<display-name>project-1</display-name>
 
 	<servlet>
-		<servlet-name>project-1</servlet-name>
-		<servlet-class>com.one.servlets.HelloServlet</servlet-class>
-		<load-on-startup>0</load-on-startup>
+		<servlet-name>front</servlet-name>
+		<servlet-class>com.one.controllers.FrontController</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>project-1</servlet-name>
-		<url-pattern>/project-1</url-pattern>
+		<servlet-name>front</servlet-name>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 </web-app>
