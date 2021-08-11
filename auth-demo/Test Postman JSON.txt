@@ -1,0 +1,6 @@
+    {
+        "id": 3,
+        "user": 1,
+        "nickname": "Patrick",
+        "pok_id": 3
+    }

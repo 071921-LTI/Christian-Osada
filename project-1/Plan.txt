@@ -1,1 +1,6 @@
 Use boostrap website for HTML stuff
+
+
+- Need to add corsHeader to th doOption HTTP request (super call above it inside) in the requestHelper
+
+doPost, doGet, doDelete, doPut, doOption

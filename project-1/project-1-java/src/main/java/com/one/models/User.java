@@ -1,14 +1,37 @@
 package com.one.models;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name = "ers_users",  schema = "project1")
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "ers_users_id")
 	private int id;
+	@Column(name = "ers_username", nullable = false, unique = true)
 	private String username;
+	@Column(name = "ers_password", nullable = false)
 	private String password;
+	@Column(name = "user_first_name", nullable = false)
 	private String firstName;
+	@Column(name = "user_last_name", nullable = false)
 	private String lastName;
+	@Column(name = "user_email", nullable = false)
 	private String email;
-	private String role;
+	@ManyToOne( cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity=Role.class )
+    @JoinColumn(name="user_role_id", nullable = false)
+	private Role role;
 	
 	public User() {
 		super();
@@ -24,8 +47,19 @@ public class User {
 		this.id = id;
 	}
 	
+	public User(String username, String password, String firstName, String lastName, String email,
+			Role role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.role = role;
+	}
+	
 	public User(int id, String username, String password, String firstName, String lastName, String email,
-			String role) {
+			Role role) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -72,10 +106,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	
