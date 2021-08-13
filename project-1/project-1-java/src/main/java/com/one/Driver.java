@@ -30,7 +30,7 @@ public class Driver {
 	static ReimbursementDao rmd = new ReimbursementHibernate();
 	
 	public static void main(String[] args) {
-//		try {
+		try {
 //			sd.addStatus(new Status("Pending"));
 //			sd.addStatus(new Status("Accepted"));
 //			sd.addStatus(new Status("Rejected"));
@@ -43,7 +43,7 @@ public class Driver {
 //			td.addType(new Type ("Medical"));
 //			td.addType(new Type ("Travel"));
 //			
-//			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
+			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
 //			ud.addUser(new User("username2", "password2", "first2", "last2", "email2", rd.getRoleById(1)));
 //			
 //			rmd.addReimbursement(new Reimbursement(200.00, "Driver ran over my foot", ud.getUserById(1), null, sd.getStatusById(1), td.getTypeById(1)));
@@ -58,7 +58,10 @@ public class Driver {
 //		} catch (UserNotFoundException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-//		}
+		} catch (RoleNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
