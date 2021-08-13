@@ -1,5 +1,7 @@
 package com.one.models;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +20,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "ers_users_id")
+//	@OneToMany(mappedBy="ers_reimbursement.reimb_author")
 	private int id;
 	@Column(name = "ers_username", nullable = false, unique = true)
 	private String username;

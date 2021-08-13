@@ -10,6 +10,7 @@ import com.one.daos.TypeDao;
 import com.one.daos.TypeHibernate;
 import com.one.daos.UserDao;
 import com.one.daos.UserHibernate;
+import com.one.exceptions.ReimbursementNotFoundException;
 import com.one.exceptions.RoleNotFoundException;
 import com.one.exceptions.StatusNotFoundException;
 import com.one.exceptions.TypeNotFoundException;
@@ -30,32 +31,34 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		try {
-			sd.addStatus(new Status("Pending"));
-			sd.addStatus(new Status("Accepted"));
-			sd.addStatus(new Status("Rejected"));
-			
-			rd.addRole(new Role("Employee"));
-			rd.addRole(new Role("Manager"));
-			
-			td.addType(new Type ("Business"));
-			td.addType(new Type ("Deductible"));
-			td.addType(new Type ("Medical"));
-			td.addType(new Type ("Travel"));
-			
+//			sd.addStatus(new Status("Pending"));
+//			sd.addStatus(new Status("Accepted"));
+//			sd.addStatus(new Status("Rejected"));
+//			
+//			rd.addRole(new Role("Employee"));
+//			rd.addRole(new Role("Manager"));
+//			
+//			td.addType(new Type ("Business"));
+//			td.addType(new Type ("Deductible"));
+//			td.addType(new Type ("Medical"));
+//			td.addType(new Type ("Travel"));
+//			
 			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
-			rmd.addReimbursement(new Reimbursement(200.00, "Driver ran over my foot", ud.getUserById(1), null, sd.getStatusById(1), td.getTypeById(1)));
-			System.out.println(sd.getStatusById(1));
-			System.out.println(ud.getUserById(1).getRole());
-		} catch (StatusNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			ud.addUser(new User("username2", "password2", "first2", "last2", "email2", rd.getRoleById(1)));
+//			
+//			rmd.addReimbursement(new Reimbursement(200.00, "Driver ran over my foot", ud.getUserById(1), null, sd.getStatusById(1), td.getTypeById(1)));
+//			rmd.addReimbursement(new Reimbursement(300.00, "Travel costs", ud.getUserById(2), null, sd.getStatusById(1), td.getTypeById(4)));
+		
+//			ud.deleteUser(ud.getUserById(1));
+//			rmd.deleteReimbursement(rmd.getReimbursementById(2));
+			
+//			System.out.println(rmd.getReimbursementsbyAuthor(ud.getUserById(2)));
+//			System.out.println(sd.getStatusById(1));
+//			System.out.println(ud.getUserById(1).getRole());
+//		} catch (UserNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
 		} catch (RoleNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TypeNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

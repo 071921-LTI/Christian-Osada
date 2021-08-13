@@ -57,11 +57,27 @@ public class UserHibernate implements UserDao{
 	@Override
 	public boolean deleteUser(User u) throws UserNotFoundException {
 		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
+			Transaction transaction = ss.beginTransaction();
+			try {
+				//deletes all reimbursements on record by this employee to get around foreign key restraint
+			  String hql = "delete from Reimbursement where reimb_author= :user";
+			  Query query = ss.createQuery(hql);
+			  query.setParameter("user", u);
+			  query.executeUpdate();
+
+			  transaction.commit();
+			} catch (Throwable t) {
+			  transaction.rollback();
+			  throw t;
+			}
+			
 			Transaction tx = ss.beginTransaction();
 			ss.delete(u);
 			tx.commit();
 		}
 		return true;
+		
+		
 	}
 
 	@Override

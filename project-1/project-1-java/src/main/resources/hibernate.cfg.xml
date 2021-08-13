@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
 		<property name="hibernate.connection.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
-		<property name="hibernate.project1"></property>
+		<property name="hibernate.default_schema">project1</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		
 		<mapping class="com.one.models.User"></mapping>
@@ -18,7 +18,6 @@
 		<mapping class="com.one.models.Status"></mapping>
 		<mapping class="com.one.models.Role"></mapping>
 		<mapping class="com.one.models.Type"></mapping>
-
     </session-factory>
 
 </hibernate-configuration>
