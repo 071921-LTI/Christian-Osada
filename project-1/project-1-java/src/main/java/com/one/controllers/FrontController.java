@@ -33,7 +33,7 @@ public class FrontController extends HttpServlet {
 				String token = user.getId() + ":" + user.getRole();
 				rs.setHeader("Authorization", token);
 				rs.setStatus(200);
-				rh.process(rq, rs);
+				rh.process(rq, rs, token);
 			} else {
 
 			}
