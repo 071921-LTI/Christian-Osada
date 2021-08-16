@@ -1,5 +1,8 @@
 package com.one;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.one.daos.ReimbursementDao;
 import com.one.daos.ReimbursementHibernate;
 import com.one.daos.RoleDao;
@@ -31,6 +34,11 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		try {
+			
+			User u1 = ud.getUserById(2);
+			User u2 = ud.getUserById(4);
+			Reimbursement r1 = rmd.getReimbursementById(5);
+			
 //			sd.addStatus(new Status("Pending"));
 //			sd.addStatus(new Status("Accepted"));
 //			sd.addStatus(new Status("Rejected"));
@@ -43,11 +51,11 @@ public class Driver {
 //			td.addType(new Type ("Medical"));
 //			td.addType(new Type ("Travel"));
 //			
-			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
+//			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
 //			ud.addUser(new User("username2", "password2", "first2", "last2", "email2", rd.getRoleById(1)));
 //			
-//			rmd.addReimbursement(new Reimbursement(200.00, "Driver ran over my foot", ud.getUserById(1), null, sd.getStatusById(1), td.getTypeById(1)));
-//			rmd.addReimbursement(new Reimbursement(300.00, "Travel costs", ud.getUserById(2), null, sd.getStatusById(1), td.getTypeById(4)));
+//			rmd.addReimbursement(u1);
+//			rmd.addReimbursement(u2);
 		
 //			ud.deleteUser(ud.getUserById(1));
 //			rmd.deleteReimbursement(rmd.getReimbursementById(2));
@@ -58,7 +66,27 @@ public class Driver {
 //		} catch (UserNotFoundException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
-		} catch (RoleNotFoundException e) {
+			
+//			Date date = new Date();
+//			Timestamp timestamp = new Timestamp(date.getTime());
+//			
+//			//Not needed in traditional test
+//			r1.setSubmitted(timestamp);
+//			
+//			r1.setResolver(u1);
+//			r1.setResolved(timestamp);
+//			
+//			rmd.updateReimbursement(r1);
+//			System.out.println(rmd.getReimbursementsbyAuthor(u1));
+			
+			//Comeback to this
+			ud.deleteUser(ud.getUserById(2));
+			
+//			System.out.println(rmd.getReimbursementsbyAuthor(ud.getUserById(2)));
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ReimbursementNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

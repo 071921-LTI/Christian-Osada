@@ -36,12 +36,11 @@ public class ReimbursementHibernate implements ReimbursementDao{
 	@Override
 	public List<Reimbursement> getReimbursementsbyAuthor(User user) {
 		List<Reimbursement> r = null;
-//		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
-//	        Query query = ss.createQuery("FROM Reimbursement WHERE user = :user");
-//	        query.setParameter("user", user.getUsername());
-//	        List list = query.list();
-//	        r = (Reimbursement) list.get();
-//		}
+		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
+			Query query = ss.createQuery("FROM Reimbursement WHERE author = :author");
+			query.setParameter("author", user);
+			r = query.list();
+		}
 		return r;
 	}
 
