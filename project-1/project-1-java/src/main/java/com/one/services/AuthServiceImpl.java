@@ -31,4 +31,13 @@ public class AuthServiceImpl implements AuthService {
 			return true;
 		}
 	}
+	
+	@Override
+	public User getTokenUser(String token) throws UserNotFoundException {
+	String[] stringArr = token.split(":");
+	int id = Integer.parseInt(stringArr[0]);
+	String role = stringArr[1];
+		User user = ud.getUserById(id);
+		return user;
+	}
 }

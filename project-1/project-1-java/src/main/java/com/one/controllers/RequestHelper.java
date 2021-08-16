@@ -14,8 +14,8 @@ public class RequestHelper {
 	private UserDelegate ud = new UserDelegate();
 	private ReimbursementDelegate rd = new ReimbursementDelegate();
 	
-	public void process(HttpServletRequest rq, HttpServletResponse rs) throws IOException, ServletException {
-
+	public void process(HttpServletRequest rq, HttpServletResponse rs, String token) throws IOException, ServletException {
+		System.out.println("In requestHelper");
 		String path = rq.getPathInfo();
 		
 		if (path != null) {
@@ -29,11 +29,12 @@ public class RequestHelper {
 			
 			switch(path) {
 			case "users":
-				ud.process(rq, rs);
+				ud.process(rq, rs, token);
 				break;
 			case "reimbursements":
 				// Can add auth behavior here.
-				rd.process(rq, rs);
+				System.out.println("In requestHelper2");
+				rd.process(rq, rs, token);
 				break;
 			case "auth":
 				// TODO: create auth delegate 

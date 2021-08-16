@@ -22,6 +22,7 @@ function login(event) {
             
             sessionStorage.setItem("token", authToken);
             console.log("token");
+            window.location.href = 'employee.html';
 
         } else if (xhr.readyState === 4){
             console.log('Something went wrong...');
