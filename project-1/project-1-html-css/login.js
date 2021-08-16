@@ -21,6 +21,7 @@ function login(event) {
             let authToken = xhr.getResponseHeader("Authorization");
             
             sessionStorage.setItem("token", authToken);
+            console.log("token");
 
         } else if (xhr.readyState === 4){
             console.log('Something went wrong...');

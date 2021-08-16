@@ -59,11 +59,19 @@ public class UserHibernate implements UserDao{
 		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
 			Transaction transaction = ss.beginTransaction();
 			try {
-				//deletes all reimbursements on record by this employee to get around foreign key restraint
+				//deletes all reimbursements on record authored
+				//by this employee to get around foreign key restraint
 			  String hql = "delete from Reimbursement where reimb_author= :user";
 			  Query query = ss.createQuery(hql);
 			  query.setParameter("user", u);
 			  query.executeUpdate();
+			  
+			  
+			  String hql2 = "update Reimbursement set reimb_resolver = :blank where reimb_resolver= :user";
+			  Query query2 = ss.createQuery(hql2);
+			  query2.setParameter("user", u);
+			  query2.setParameter("blank", null);
+			  query2.executeUpdate();
 
 			  transaction.commit();
 			} catch (Throwable t) {
