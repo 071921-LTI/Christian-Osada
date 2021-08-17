@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.User;
@@ -19,6 +22,7 @@ import com.one.services.UserServices;
 
 public class UserDelegate implements Delegatable{
 	
+	private static Logger log = LogManager.getRootLogger();
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
 
@@ -29,16 +33,16 @@ public class UserDelegate implements Delegatable{
 
 		switch (method) {
 		case "GET":
-			handleGet(rq, rs);
+			handleGet(rq, rs, token);
 			break;
 		case "POST":
 			handlePost(rq, rs, token);
 			break;
 		case "PUT":
-			handlePut(rq, rs);
+			handlePut(rq, rs, token);
 			break;
 		case "DELETE":
-			handleDelete(rq, rs);
+			handleDelete(rq, rs, token);
 			break;
 		default:
 			rs.sendError(405);
@@ -47,7 +51,7 @@ public class UserDelegate implements Delegatable{
 	}
 
 	@Override
-	public void handleGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+	public void handleGet(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handleGet");
 
 		// String passed through the request if any
@@ -58,6 +62,7 @@ public class UserDelegate implements Delegatable{
 				User user = us.getUserById(Integer.valueOf(pathNext));
 				try (PrintWriter pw = rs.getWriter()) {
 					pw.write(new ObjectMapper().writeValueAsString(user));
+					log.info("User with token " + token + " queried " + user + " from the user database.");
 				}
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
@@ -69,12 +74,13 @@ public class UserDelegate implements Delegatable{
 			List<User> users = us.getUsers();
 			try (PrintWriter pw = rs.getWriter()) {
 				pw.write(new ObjectMapper().writeValueAsString(users));
+				log.info("User with token " + token + " queried " + users + " from the user database.");
 			}
 		}
 	}
 
 	@Override
-	public void handlePut(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+	public void handlePut(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handlePut");
 
 	}
@@ -90,11 +96,12 @@ public class UserDelegate implements Delegatable{
 //				rs.sendError(400, "Unable to add user.");
 //			} else {
 //				rs.setStatus(201);
+//				log.info("User with token " + token + " added " + user + " to the user database.");
 //			}
 	}
 
 	@Override
-	public void handleDelete(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+	public void handleDelete(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handleDelete");
 
 		InputStream request = rq.getInputStream();
@@ -106,6 +113,7 @@ public class UserDelegate implements Delegatable{
 				rs.sendError(400, "Unable to add user.");
 			} else {
 				rs.setStatus(201);
+				log.info("User with token " + token + " deleted " + user + " from the user database.");
 			}
 		} catch (UserNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
