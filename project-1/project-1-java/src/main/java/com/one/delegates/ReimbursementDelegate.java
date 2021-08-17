@@ -58,7 +58,6 @@ public class ReimbursementDelegate implements Delegatable {
 		String pathNext = (String) rq.getAttribute("pathNext");
 
 		if (pathNext != null) {
-			
 			List<Reimbursement> reimbursements = null;
 			try {
 				reimbursements = rmd.getReimbursementsbyAuthor(us.getUserById(Integer.valueOf(pathNext)));
