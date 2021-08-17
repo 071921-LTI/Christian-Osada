@@ -5,22 +5,47 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="styles/employee.css">
     </head>
+
+    <div class="topnav">
+        <a class="active" href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+      </div>
+
     <body>
         <div class="container">
             <div id=requestLabel>
-                <label><b>Reimbursement Requester</b></label>
+                <label><b>Employee Homepage</b></label>
             </div>
-            <div id=request>
-                <input type="text" placeholder="Enter Request Amount" name="requestA" required>
-            </div>
-        </div>
-        
-        <span>Creating Elements Dynamically</span><br>
-        <button type="button">Create Table</button>
-        <div id="tableDiv"></div>
-                </tbody>
-              </table>
 
-        <script src="DOM.js"></script>
+            <button type="button", id="getData">Display Information</button><br>
+
+            <p></p>
+
+            <label for="id">ID</label><br>
+            <p id="idp">ID Number</p>
+            <label for="firstName">First Name</label><br>
+            <div id="firstName", contenteditable="true">
+                <p id="firstNamep">First Name</p>
+            </div>
+            <label for="lastName">Last Name</label><br>
+            <div id="lastName", contenteditable="true">
+                <p id="lastNamep">Last Name</p>
+            </div>
+            <label for="email">Email</label><br>
+            <div id="email", contenteditable="true">
+                <p id="emailp">Email</p>
+            </div>
+            <label for="role">Role</label><br>
+            <div id="role", contenteditable="false", value="value">
+                <p id="rolep">Role</p>
+            </div>
+
+            <p></p>
+
+        <button type="button", id="updateData">Update Information</button>
+        <script src="employee.js"></script>
+        
     </body>
 </html>

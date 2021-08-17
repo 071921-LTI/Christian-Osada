@@ -82,17 +82,15 @@ public class UserDelegate implements Delegatable{
 	@Override
 	public void handlePost(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handlePost");
-
-		InputStream request = rq.getInputStream();
-		// Converts the request body into a User.class object
-		User user = new ObjectMapper().readValue(request, User.class);
-		
-		if (!us.addUser(user)) {
-			rs.sendError(400, "Unable to add user.");
-		} else {
-			rs.setStatus(201);
-		}
-
+//		InputStream request = rq.getInputStream();
+//			// Converts the request body into a User.class object
+//			User user = new ObjectMapper().readValue(request, User.class);
+//		
+//			if (!us.addUser(user)) {
+//				rs.sendError(400, "Unable to add user.");
+//			} else {
+//				rs.setStatus(201);
+//			}
 	}
 
 	@Override

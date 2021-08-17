@@ -39,7 +39,7 @@ public class UserHibernate implements UserDao{
 	public List<User> getUsers() {
 		List<User> u = null;
 		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
-			u = ss.createQuery("FROM Trainer", User.class).list();
+			u = ss.createQuery("FROM User", User.class).list();
 		}
 		return u;
 	}

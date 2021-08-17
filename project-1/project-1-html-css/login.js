@@ -1,10 +1,4 @@
-// // document.getElementById("login").addEventListener("submit", login);
-// inputs = document.getElementById("form").elements;
 document.getElementById("form").addEventListener("submit", login, false);
-
-// var form = document.getElementById("form");
-// function handleForm(event) { event.preventDefault(); } 
-// form.addEventListener('submit', handleForm);
 
 function login(event) {
     event.preventDefault();
@@ -16,12 +10,12 @@ function login(event) {
     
     xhr.open("POST", "http://localhost:8080/project-1/users");
 
-    xhr.onreadystatechange = function(){
+    xhr.onreadystatechange = function() {
         if(xhr.readyState === 4 && xhr.status === 200){
             let authToken = xhr.getResponseHeader("Authorization");
             
             sessionStorage.setItem("token", authToken);
-            console.log("token");
+            console.log(authToken);
             window.location.href = 'employee.html';
 
         } else if (xhr.readyState === 4){

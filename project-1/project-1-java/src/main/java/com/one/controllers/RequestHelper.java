@@ -18,6 +18,8 @@ public class RequestHelper {
 		System.out.println("In requestHelper");
 		String path = rq.getPathInfo();
 		
+		System.out.println(rq);
+		
 		if (path != null) {
 			path = path.substring(1);
 			

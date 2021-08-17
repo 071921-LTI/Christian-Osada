@@ -24,22 +24,30 @@ public class FrontController extends HttpServlet {
 		String username = rq.getParameter("username");
 		String password = rq.getParameter("password");
 		
+		String token2 = rq.getHeader("Authorization");
+		System.out.println(token2);
+		
 		System.out.println(username + password);
 		
 		try {
-			User user = as.login(username, password);
-			if (user != null) {
-
-				String token = user.getId() + ":" + user.getRole();
-				rs.setHeader("Authorization", token);
+			if(token2 != null) {
+				System.out.println(token2);
 				rs.setStatus(200);
-				rh.process(rq, rs, token);
+				rh.process(rq, rs, token2);
 			} else {
 
+				User user = as.login(username, password);
+				if (user != null) {
+					String token = user.getId() + ":" + user.getRole();
+					rs.addHeader("Authorization", token);
+					rs.setStatus(200);
+					rh.process(rq, rs, token);
+				}
 			}
 		} catch (UserNotFoundException e) {
 			rs.sendError(404);
 		}
+		
 		
 	}
 	
