@@ -38,7 +38,8 @@ public class FrontController extends HttpServlet {
 
 				User user = as.login(username, password);
 				if (user != null) {
-					String token = user.getId() + ":" + user.getRole();
+					//Creates token on successful login
+					String token = user.getId() + ":" + user.getRole().getRole();
 					rs.addHeader("Authorization", token);
 					rs.setStatus(200);
 					rh.process(rq, rs, token);
