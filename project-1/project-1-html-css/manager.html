@@ -5,6 +5,12 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="styles/manager.css">
     </head>
+
+    <div class="topnav">
+        <a class="active" href="manager.html">Home</a>
+        <a class="active" href="managerTickets.html">Tickets</a>
+      </div>
+
     <body>
         <div class="container">
             <div id=requestLabel>
@@ -15,6 +21,9 @@
                 <input type="text" placeholder="Enter Request Id" name="requestA" required>
             </div>
         </div>
-        <script src="syntax.js"></script>
+
+        <button type="button", id="getData">Display Information</button>
+        <button type="button", id="logout">Logout</button>
+        <script src="manager.js"></script>
     </body>
 </html>

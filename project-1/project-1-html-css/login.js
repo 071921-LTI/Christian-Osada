@@ -1,5 +1,4 @@
 document.getElementById("form").addEventListener("submit", login, false);
-document.getElementById('logout').addEventListener("click", logout);
 
 function login(event) {
     event.preventDefault();
@@ -21,9 +20,9 @@ function login(event) {
 
             console.log(tArr[1]);
 
-            if (tArr[1] = 'Employee') {
+            if (tArr[1] === 'Employee') {
                 window.location.href = 'employee.html';
-            } else if (tArr[1] = 'Manager'){
+            } else if (tArr[1] === 'Manager'){
                 window.location.href = 'manager.html';
             }
             
@@ -36,8 +35,4 @@ function login(event) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     let requestBody = `username=${username}&password=${password}`;
     xhr.send(requestBody);
-}
-
-function logout() {
-    window.location.href = 'login.html';
 }
