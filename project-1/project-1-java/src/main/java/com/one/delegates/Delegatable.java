@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 public interface Delegatable {
 	void process(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException;
 	
-	void handleGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException;
-	void handlePut(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException;
+	void handleGet(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException;
+	void handlePut(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException;
 	void handlePost(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException;
-	void handleDelete(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException;
+	void handleDelete(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException;
 }

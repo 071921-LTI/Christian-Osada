@@ -7,16 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.User;
 import com.one.services.AuthService;
 import com.one.services.AuthServiceImpl;
+import com.one.services.UserServiceImpl;
+import com.one.services.UserServices;
 
 public class FrontController extends HttpServlet {
 
+	private static Logger log = LogManager.getRootLogger();
 	private static final long serialVersionUID = 1L;
 	private RequestHelper rh = new RequestHelper();
 	AuthService as = new AuthServiceImpl();
+	UserServices us = new UserServiceImpl();
 	
 	protected void doGet(HttpServletRequest rq, HttpServletResponse rs) throws IOException, ServletException{
 		addCorsHeader(rq.getRequestURI(),rs);
@@ -24,25 +31,26 @@ public class FrontController extends HttpServlet {
 		String username = rq.getParameter("username");
 		String password = rq.getParameter("password");
 		
-		String token2 = rq.getHeader("Authorization");
-		System.out.println(token2);
+		String tokenCheck = rq.getHeader("Authorization");
+		System.out.println(tokenCheck);
 		
 		System.out.println(username + password);
 		
 		try {
-			if(token2 != null && username == null && password == null) {
-				System.out.println(token2);
+			if(tokenCheck != null && username == null && password == null) {
+				System.out.println(tokenCheck);
+				log.info("User with token " + tokenCheck + " logged in");
 				rs.setStatus(200);
-				rh.process(rq, rs, token2);
+				rh.process(rq, rs, tokenCheck);
 			} else {
 
 				User user = as.login(username, password);
 				if (user != null) {
 					//Creates token on successful login
-					String token = user.getId() + ":" + user.getRole().getRole();
-					rs.addHeader("Authorization", token);
+					String tokenMake = user.getId() + ":" + user.getRole().getRole();
+					rs.addHeader("Authorization", tokenMake);
 					rs.setStatus(200);
-					rh.process(rq, rs, token);
+					rh.process(rq, rs, tokenMake);
 				}
 			}
 		} catch (UserNotFoundException e) {

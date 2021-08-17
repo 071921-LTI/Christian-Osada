@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.one.exceptions.ReimbursementNotFoundException;
 import com.one.exceptions.UserNotFoundException;
@@ -22,9 +25,11 @@ import com.one.services.UserServices;
 
 public class ReimbursementDelegate implements Delegatable {
 	
+	private static Logger log = LogManager.getRootLogger();
 	ReimbursementService rmd = new ReimbursementServiceImpl();
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
+	
 	
 	@Override
 	public void process(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
@@ -33,16 +38,16 @@ public class ReimbursementDelegate implements Delegatable {
 
 		switch (method) {
 		case "GET":
-			handleGet(rq, rs);
+			handleGet(rq, rs, token);
 			break;
 		case "POST":
 			handlePost(rq, rs, token);
 			break;
 		case "PUT":
-			handlePut(rq, rs);
+			handlePut(rq, rs, token);
 			break;
 		case "DELETE":
-			handleDelete(rq, rs);
+			handleDelete(rq, rs, token);
 			break;
 		default:
 			rs.sendError(405);
@@ -51,7 +56,7 @@ public class ReimbursementDelegate implements Delegatable {
 	}
 	
 	@Override
-	public void handleGet(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+	public void handleGet(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handleGet");
 
 		// String passed through the request if any
@@ -67,18 +72,20 @@ public class ReimbursementDelegate implements Delegatable {
 			}
 			try (PrintWriter pw = rs.getWriter()) {
 				pw.write(new ObjectMapper().writeValueAsString(reimbursements));
+				log.info("User with token " + token + " queried the reimbursement database for" + reimbursements + ".");
 			}
 
 		} else {
 			List<Reimbursement> reimbursements = rmd.getReimbursements();
 			try (PrintWriter pw = rs.getWriter()) {
 				pw.write(new ObjectMapper().writeValueAsString(reimbursements));
+				log.info("User with token " + token + " queried the reimbursement database for" + reimbursements + ".");
 			}
 		}
 	}
 
 	@Override
-	public void handlePut(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+	public void handlePut(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handlePut");
 
 	}
@@ -102,12 +109,13 @@ public class ReimbursementDelegate implements Delegatable {
 			rs.sendError(400, "Unable to add user.");
 		} else {
 			rs.setStatus(201);
+			log.info("User with token " + token + " added " + reimbursement + " to the reimbursement database.");
 		}
 
 	}
 
 	@Override
-	public void handleDelete(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
+	public void handleDelete(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		InputStream request = rq.getInputStream();
 		// Converts the request body into a User.class object
 		Reimbursement reimbursement = new ObjectMapper().readValue(request, Reimbursement.class);
@@ -117,6 +125,7 @@ public class ReimbursementDelegate implements Delegatable {
 				rs.sendError(400, "Unable to add user.");
 			} else {
 				rs.setStatus(201);
+				log.info("User with token " + token + " deleted " + reimbursement + " from the reimbursement database.");
 			}
 		} catch (ReimbursementNotFoundException e) {
 			// TODO Auto-generated catch block
