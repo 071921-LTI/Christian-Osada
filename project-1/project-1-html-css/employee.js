@@ -1,12 +1,15 @@
 document.getElementById('getData').addEventListener("click", getData);
+document.getElementById('logout').addEventListener("click", logout);
+
+
+async function getData() {
+
 let token = sessionStorage.getItem("token");
-const tArr = token.split(":");
+let tArr = token.split(":");
 let apiURL = 'http://localhost:8080/project-1/users/' + tArr[0];
 
 var header = new Headers();
 header.append('Authorization', token);
-
-async function getData() {
 
     let response = await fetch(apiURL, {
         headers: {
@@ -24,8 +27,7 @@ async function getData() {
 }
 
 function populateData(response) {
-//     console.log(response);
-//     // Display pokemon information in the section tag of my html document
+
 
 //     let dataSection = document.getElementById('data');
    
@@ -57,4 +59,8 @@ function populateData(response) {
 //            dataSection.appendChild(spriteImg);
 //        }
 //    }
+}
+
+function logout() {
+    window.location.href = 'login.html';
 }

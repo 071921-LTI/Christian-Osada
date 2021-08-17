@@ -53,6 +53,7 @@ public class Driver {
 //			
 //			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
 //			ud.addUser(new User("username2", "password2", "first2", "last2", "email2", rd.getRoleById(1)));
+//			ud.addUser(new User("manager", "manager", "managerFirst", "managerLast", "managerEmail", rd.getRoleById(2)));
 //			
 //			rmd.addReimbursement(u1);
 //			rmd.addReimbursement(u2);
@@ -80,7 +81,7 @@ public class Driver {
 //			System.out.println(rmd.getReimbursementsbyAuthor(u1));
 			
 			//Comeback to this
-			ud.deleteUser(ud.getUserById(2));
+//			ud.deleteUser(ud.getUserById(2));
 			
 //			System.out.println(rmd.getReimbursementsbyAuthor(ud.getUserById(2)));
 		} catch (UserNotFoundException e) {

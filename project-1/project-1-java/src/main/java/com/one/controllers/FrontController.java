@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
 		System.out.println(username + password);
 		
 		try {
-			if(token2 != null) {
+			if(token2 != null && username == null && password == null) {
 				System.out.println(token2);
 				rs.setStatus(200);
 				rh.process(rq, rs, token2);
