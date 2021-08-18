@@ -39,7 +39,7 @@ public class FrontController extends HttpServlet {
 		try {
 			if(tokenCheck != null && username == null && password == null) {
 				System.out.println(tokenCheck);
-				log.info("User with token " + tokenCheck + " logged in");
+				log.info("User with token " + tokenCheck + " logged in.");
 				rs.setStatus(200);
 				rh.process(rq, rs, tokenCheck);
 			} else {

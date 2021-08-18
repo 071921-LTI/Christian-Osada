@@ -33,11 +33,10 @@ public class Driver {
 	static ReimbursementDao rmd = new ReimbursementHibernate();
 	
 	public static void main(String[] args) {
-		try {
 			
-			User u1 = ud.getUserById(2);
-			User u2 = ud.getUserById(4);
-			Reimbursement r1 = rmd.getReimbursementById(5);
+//			User u1 = ud.getUserById(2);
+//			User u2 = ud.getUserById(4);
+//			Reimbursement r1 = rmd.getReimbursementById(5);
 			
 //			sd.addStatus(new Status("Pending"));
 //			sd.addStatus(new Status("Accepted"));
@@ -84,13 +83,6 @@ public class Driver {
 //			ud.deleteUser(ud.getUserById(2));
 			
 //			System.out.println(rmd.getReimbursementsbyAuthor(ud.getUserById(2)));
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ReimbursementNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 	}
 
