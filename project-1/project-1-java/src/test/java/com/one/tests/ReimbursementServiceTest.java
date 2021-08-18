@@ -44,7 +44,7 @@ public class ReimbursementServiceTest {
 	int tokenId2 = 2;
 	
 	@Mock
-	ReimbursementDao rmd;
+	ReimbursementDao rd;
 	
 	@InjectMocks
 	ReimbursementService rms =  new ReimbursementServiceImpl();
@@ -52,7 +52,7 @@ public class ReimbursementServiceTest {
 	@Test
 	public void findReimbursementById() {
 		try {
-			Mockito.when(rmd.getReimbursementById(1)).thenReturn(reimbursement);
+			Mockito.when(rd.getReimbursementById(1)).thenReturn(reimbursement);
 			assertEquals(reimbursement, rms.getReimbursementById(1));
 		} catch (ReimbursementNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -64,7 +64,7 @@ public class ReimbursementServiceTest {
 	public void findReimbursements() {
 		List<Reimbursement> reimbursements = new ArrayList();
 		reimbursements.add(reimbursement);
-		Mockito.when(rmd.getReimbursements()).thenReturn(reimbursements);
+		Mockito.when(rd.getReimbursements()).thenReturn(reimbursements);
 		assertEquals(reimbursements, rms.getReimbursements());
 	}
 	
@@ -72,19 +72,19 @@ public class ReimbursementServiceTest {
 	public void findReimbursementsByAuthor() {
 		List<Reimbursement> reimbursements = new ArrayList();
 		reimbursements.add(reimbursement);
-		Mockito.when(rmd.getReimbursementsbyAuthor(user)).thenReturn(reimbursements);
+		Mockito.when(rd.getReimbursementsbyAuthor(user)).thenReturn(reimbursements);
 		assertEquals(reimbursements, rms.getReimbursementsbyAuthor(user));
 	}
 	
 	@Test
 	public void addReimbursement() {
-		Mockito.when(rmd.addReimbursement(reimbursement)).thenReturn(true);
+		Mockito.when(rd.addReimbursement(reimbursement)).thenReturn(true);
 		assertEquals(true, rms.addReimbursement(reimbursement));
 	}
 	@Test
 	public void deleteReimbursement() {
 		try {
-			Mockito.when(rmd.deleteReimbursement(reimbursement)).thenReturn(true);
+			Mockito.when(rd.deleteReimbursement(reimbursement)).thenReturn(true);
 			assertEquals(true, rms.deleteReimbursement(reimbursement));
 		} catch (ReimbursementNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +94,7 @@ public class ReimbursementServiceTest {
 	@Test
 	public void updateReimbursement() {
 		try {
-			Mockito.when(rmd.updateReimbursement(reimbursement)).thenReturn(true);
+			Mockito.when(rd.updateReimbursement(reimbursement)).thenReturn(true);
 			assertEquals(true, rms.updateReimbursement(reimbursement));
 		} catch (ReimbursementNotFoundException e) {
 			// TODO Auto-generated catch block

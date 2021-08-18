@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
         <title>ERS Reimbursement Site</title>
         <meta charset="UTF-8" />
@@ -11,38 +12,37 @@
         <a class="active" href="employeeTickets.html">Tickets</a>
       </div>
 
-    <body>
+    <body onload="getData()">
         <div class="container">
             <div id=requestLabel>
                 <label><b>Employee Homepage</b></label>
             </div>
 
-            <button type="button", id="getData">Display Information</button><br>
-
             <p></p>
 
-            <label for="id">ID</label><br>
+            <label for="id"><i><b>ID:</b></i></label><br>
             <p id="idp">ID Number</p>
-            <label for="firstName">First Name</label><br>
+            <label for="firstName"><i><b>First Name:</b></i></label><br>
             <div id="firstName", contenteditable="true">
                 <p id="firstNamep">First Name</p>
             </div>
-            <label for="lastName">Last Name</label><br>
+            <label for="lastName"><i><b>Last Name:</b></i></label><br>
             <div id="lastName", contenteditable="true">
                 <p id="lastNamep">Last Name</p>
             </div>
-            <label for="email">Email</label><br>
+            <label for="email"><i><b>Email:</b></i></label><br>
             <div id="email", contenteditable="true">
                 <p id="emailp">Email</p>
             </div>
-            <label for="role">Role</label><br>
+            <label for="role"><i><b>Role:</b></i></label><br>
             <div id="role", contenteditable="false", value="value">
                 <p id="rolep">Role</p>
             </div>
 
             <p></p>
 
-        <button type="button", id="updateData">Display Information</button>
+        <button type="button", id="updateData">Update Information</button>
+        <button type="button", id="getData">Reset Information</button><br>
         <button type="button", id="logout">Logout</button>
         <script src="employee.js"></script>
     </body>
