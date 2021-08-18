@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.one.exceptions.UserNotFoundException;
+import com.one.models.Reimbursement;
 import com.one.models.User;
 import com.one.services.AuthService;
 import com.one.services.AuthServiceImpl;
@@ -82,7 +83,23 @@ public class UserDelegate implements Delegatable{
 	@Override
 	public void handlePut(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handlePut");
-
+		
+		InputStream request = rq.getInputStream();
+		User user = new ObjectMapper().readValue(request, User.class);
+		
+		try {
+			User oldUser = au.getTokenUser(token);
+			user.setUsername(oldUser.getUsername());
+			user.setPassword(oldUser.getPassword());
+			user.setRole(oldUser.getRole());
+			
+			us.updateUser(user);
+			rs.setStatus(200);
+			log.info("User with token " + token + " changed their information to " + user + " in the user database.");
+		} catch (UserNotFoundException e) {
+			rs.sendError(400, "Unable to add user.");
+			e.printStackTrace();
+		}
 	}
 
 	@Override

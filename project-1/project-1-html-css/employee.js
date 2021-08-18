@@ -1,4 +1,5 @@
 document.getElementById('getData').addEventListener("click", getData);
+document.getElementById('updateUser').addEventListener("click", updateUser);
 document.getElementById('logout').addEventListener("click", logout);
 
 
@@ -27,11 +28,51 @@ header.append('Authorization', token);
 }
 
 function populateUserInfo(response) {
-    document.getElementById("idp").innerHTML = response.id;
-    document.getElementById("firstNamep").innerHTML = response.firstName;
-    document.getElementById("lastNamep").innerHTML = response.lastName;
-    document.getElementById("emailp").innerHTML = response.email;
-    document.getElementById("rolep").innerHTML = response.role.role;
+    document.getElementById("idp").innerText = response.id;
+    document.getElementById("firstNamep").innerText = response.firstName;
+    document.getElementById("lastNamep").innerText = response.lastName;
+    document.getElementById("emailp").innerText = response.email;
+    document.getElementById("rolep").innerText = response.role.role;
+}
+
+function updateUser() {
+
+    let id = document.getElementById("idp").innerHTML;
+    let firstName = document.getElementById("firstNamep").innerHTML;
+    let lastName = document.getElementById("lastNamep").innerHTML;
+    let email = document.getElementById("emailp").innerHTML;
+
+    console.log(id);
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open("PUT", "http://localhost:8080/project-1/users");
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4 && xhr.status === 200){
+            console.log('success')
+
+        } else if (xhr.readyState === 4){
+            console.log('Something went wrong...');
+        }
+    }
+    
+    let authToken = sessionStorage.getItem("token");
+
+    let user = {
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email
+    }
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Authorization", authToken);
+    // let requestBody = `id=${id}&firstName=${firstName}&lastName=${lastName}&email=${emailL}`;
+    xhr.send(JSON.stringify(user));
 }
 
 function logout() {

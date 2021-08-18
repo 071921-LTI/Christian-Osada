@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.one.exceptions.ReimbursementNotFoundException;
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.Reimbursement;
+import com.one.models.User;
 import com.one.services.AuthService;
 import com.one.services.AuthServiceImpl;
 import com.one.services.ReimbursementService;
