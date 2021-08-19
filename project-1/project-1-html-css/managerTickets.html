@@ -11,13 +11,16 @@
         <a class="active" href="managerTickets.html">Tickets</a>
       </div>
 
-      <button type="button", id="showAllTickets">See All Tickets</button>
-      <button type="button", id="showSomeTickets">See Some Tickets</button>
+      <body>
+        <button type="button", id="showAllTickets">See All Tickets</button>
 
+        <input type="text" id='chosenId' placeholder="Enter Wanted Employee's Id">
+        <button type="button", id="showSomeTickets">See Some Tickets</button>
       <table id='table'style="width: 100%">
         <thead>
              <tr>
                   <th>Id</th>
+                  <th>Author Id</th>
                   <th>Amount</th>
                   <th>Type</th>
                   <th>Description</th>
@@ -30,10 +33,16 @@
         <tbody id="tbody">
         </tbody>
    </table>
-
-      <script src="managerTickets.js"></script>
-      <input type="text" placeholder="Enter Wanted Employee's Id" onblur="showSomeTickets()">
-      
+</body>
+       <body onload=showAllTickets()></body>
+       <body>
+        
+        </body>
     <body>
     </body>
+    <input type="button" value="Refresh Table" onClick="document.location.reload(true)"> <br>
+    <input type="text" id='ticketId' placeholder="Enter Ticket Id"><br>
+    <input type="text" id='ticketStatus' placeholder="Accepted, Rejected"><br>
+    <button type="button", id="updateTicket">Update Ticket</button>
 </html>
+<script src="managerTickets.js"></script>

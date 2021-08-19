@@ -1,10 +1,16 @@
 document.getElementById('newTicket').addEventListener("click", newTicket);
 
-async function showTickets() {
+function showMyTickets() {
+    let authToken = sessionStorage.getItem("token");
+    let tArr = authToken.split(":");
+    let apiURL = 'http://localhost:8080/project-1/reimbursements/' + tArr[0];
+    console.log('My Works');
+    showTickets(apiURL, authToken);
+}
 
-let authToken = sessionStorage.getItem("token");
-let tArr = authToken.split(":");
-let apiURL = 'http://localhost:8080/project-1/reimbursements/' + tArr[0];
+async function showTickets(url, authToken) {
+
+let apiURL = url;
 
 var header = new Headers();
 header.append('Authorization', authToken);
@@ -24,15 +30,18 @@ header.append('Authorization', authToken);
     }
 }
 
-async function newTicket() {
+function newTicket() {
     let amount = document.getElementById("amountp").value;
     let type = document.getElementById("typep").value;
     let description = document.getElementById("descriptionp").value;
+    document.getElementById('amountp').value = "";
+    document.getElementById('typep').value = "";
+    document.getElementById('descriptionp').value = "";
 
     console.log(amount);
     console.log(type);
     console.log(description);
-
+    
     let xhr = new XMLHttpRequest();
     
     xhr.open("POST", "http://localhost:8080/project-1/reimbursements");
@@ -57,25 +66,28 @@ async function newTicket() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Authorization", authToken);
     xhr.send(JSON.stringify(ticket));
+    setTimeout(showMyTickets, 1000);
 }
+
 
 
 function createTable(data) {
     let oldBody = document.getElementById('tbody');
-    var newBody = document.createElement('tbody');
 
+    var mytbl = document.getElementById("table");
+    mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
 
     for (let i = 0; i < data.length; i++) {
-        addRow(newBody, data[i])
+        addRow(oldBody, data[i])
     }
-    oldBody.parentNode.replaceChild(newBody, oldBody)
 }
 
+
+
+//insert JSON data from GET onto table
 function addRow(tableID, data) {
-    // Insert a row at the end of the table
     let newRow = tableID.insertRow(-1);
   
-    // Insert a cell in the row at index 0
     let newCell0 = newRow.insertCell(0);
     let newText0 = document.createTextNode(data.id);
     newCell0.appendChild(newText0);
