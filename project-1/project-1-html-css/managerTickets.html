@@ -3,23 +3,48 @@
     <head>
         <title>ERS Reimbursement Site</title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="styles/manager.css">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="styles/managerTickets.css">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
     <div class="topnav">
       <a class="active" href="manager.html">Home</a>
       <a class="active" href="managerTickets.html">Tickets</a>
       <a class="active" href="managerEmployees.html">Employees</a>
-      <a class="active" href="login.html">Logout</a>
+      <div class="topnav-right">
+          <a class="active" href="login.html">Logout</a>
+      </div>
     </div>
 
-      <body>
-        <button type="button", id="showAllTickets">See All Tickets</button>
+    <div>
+      <h2><b>Tickets Page</b></h2>
+    </div>
 
-        <input type="text" id='chosenId' placeholder="Enter Wanted Employee's Id">
-        <button type="button", id="showSomeTickets">See Some Tickets</button>
-      <table id='table'style="width: 100%">
-        <thead>
+    <p></p>
+
+    <div class="wrapper fadeInDown">
+      <div id="ticketInfo" class="container">
+        <button type="button", id="showAllTickets" class="btn btn-primary">See All Tickets</button><br></p></p> <br>
+
+        <label for="amount"><i><b>Employee Id:</b></i></label><br>
+        <input type="text" id='chosenId' placeholder="Enter Wanted Employee's Id"><br></p>
+        <button type="button", id="showSomeTickets"  class="btn btn-primary">See Employee's Tickets</button><br></p></p> <br>
+        
+        <label for="amount"><i><b>Ticket Id:</b></i></label><br>
+        <input type="text" id='ticketId' placeholder="Enter Ticket Id"><br><br>
+        <label for="amount"><i><b>Status Change:</b></i></label><br>
+        <input type="text" id='ticketStatus' placeholder="Accepted/Rejected"><br><br>
+        <button type="button" id="updateTicket" class="btn btn-primary">Update Ticket</button><br></p></p> <br>
+      </div>
+    </div>
+
+        <table id='table' class="table table-striped" style="width: 100%">
+          <thead>
              <tr>
                   <th>Id</th>
                   <th>Author Id</th>
@@ -31,20 +56,14 @@
                   <th>Resolved</th>
                   <th>Status</th>
               </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-   </table>
-</body>
-       <body onload=showAllTickets()></body>
-       <body>
-        
-        </body>
-    <body>
-    </body>
-    <input type="button" value="Refresh Table" onClick="document.location.reload(true)"> <br>
-    <input type="text" id='ticketId' placeholder="Enter Ticket Id"><br>
-    <input type="text" id='ticketStatus' placeholder="Accepted, Rejected"><br>
-    <button type="button", id="updateTicket">Update Ticket</button>
-</html>
+          </thead>
+          <tbody id="tbody">
+          </tbody>
+        </table>
+        <body onload=showAllTickets()></body>
+    </html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="managerTickets.js"></script>

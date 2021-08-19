@@ -65,8 +65,6 @@ async function showAllTickets () {
 }
 
 async function showTickets(url, authToken) {
-
-    let apiURL = url;
     
     var header = new Headers();
     header.append('Authorization', authToken);
@@ -90,9 +88,10 @@ async function showTickets(url, authToken) {
         let oldBody = document.getElementById('tbody');
 
         var mytbl = document.getElementById("table");
-        mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
+        
+        mytbl.getElementsByTagName("tbody")[0].innerHTML = "";
     
-    
+        //Insert JSON array data [i] from GET onto table
         for (let i = 0; i < data.length; i++) {
             addRow(oldBody, data[i])
         }

@@ -3,41 +3,51 @@
     <head>
         <title>ERS Reimbursement Site</title>
         <meta charset="UTF-8" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="styles/manager.css">
+    
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
 
     <div class="topnav">
         <a class="active" href="manager.html">Home</a>
         <a class="active" href="managerTickets.html">Tickets</a>
         <a class="active" href="managerEmployees.html">Employees</a>
-        <a class="active" href="login.html">Logout</a>
+        <div class="topnav-right">
+            <a class="active" href="login.html">Logout</a>
+        </div>
       </div>
 
+      <h2><b>Manager Homepage</b></h2>
+
     <body onload="getData()">
-        <div class="container">
-            <div id=requestLabel>
-                <label><b>Manager Homepage</b></label>
-            </div>
-
+        <div class="wrapper fadeInDown">
             <p></p>
-
-            <label for="id"><i><b>ID:</b></i></label><br>
-            <p id="idp"></p>
-            <label for="firstName"><i><b>First Name:</b></i></label><br>
-                <input type="text" id="firstNamep"></p>
-            <label for="lastName"><i><b>Last Name:</b></i></label><br>
-                <input type="text" id="lastNamep"></p>
-            <label for="email"><i><b>Email:</b></i></label><br>
-                <input type="text" id="emailp"></p>
-            <label for="role"><i><b>Role:</b></i></label><br>
-            <div id="role", contenteditable="false", value="value">
-                <p id="rolep"></p>
-            </div>
-
+            <div id=userInfo>
+                
+                <label for="id"><i><b>ID:</b></i></label><br>
+                    <p id="idp"></p>
+                <label for="firstName"><i><b>First Name:</b></i></label><br>
+                    <input type="text" id="firstNamep"></p>
+                <label for="lastName"><i><b>Last Name:</b></i></label><br>
+                    <input type="text" id="lastNamep"></p>
+                <label for="email"><i><b>Email:</b></i></label><br>
+                    <input type="text" id="emailp"></p>
+                <label for="role"><i><b>Role:</b></i></label><br>
+                    <div id="role", contenteditable="false", value="value">
+                    <p id="rolep"></p>
+            
+            <button type="button" class="btn btn-primary" id="updateUser">Update Information</button>
+            <button type="button" class="btn btn-primary" id="getData">Reset Information</button><br>
             <p></p>
-
-        <button type="button", id="updateUser">Update Information</button>
-        <button type="button", id="getData">Reset Information</button><br>
-        <script src="userInfo.js"></script>
+        </div>
     </body>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="userInfo.js"></script>

@@ -63,7 +63,7 @@ function newTicket() {
     let ticket = {
         amount: amount,
         type: type,
-        description: description,
+        description: description
     }
 
     xhr.setRequestHeader("Content-Type", "application/json");
@@ -78,8 +78,8 @@ function createTable(data) {
     let oldBody = document.getElementById('tbody');
 
     var mytbl = document.getElementById("table");
-    mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
-    // document.getElementById("myTable").deleteRow(0);
+    
+    mytbl.getElementsByTagName("tbody")[0].innerHTML = "";
 
     //Insert JSON array data [i] from GET onto table
     for (let i = 0; i < data.length; i++) {
