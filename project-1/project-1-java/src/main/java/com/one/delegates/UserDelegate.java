@@ -13,6 +13,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.one.daos.RoleDao;
+import com.one.daos.RoleHibernate;
+import com.one.exceptions.RoleNotFoundException;
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.Reimbursement;
 import com.one.models.User;
@@ -26,6 +29,7 @@ public class UserDelegate implements Delegatable{
 	private static Logger log = LogManager.getRootLogger();
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
+	RoleDao rd = new RoleHibernate();
 
 	@Override
 	public void process(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
@@ -57,7 +61,7 @@ public class UserDelegate implements Delegatable{
 
 		// String passed through the request if any
 		String pathNext = (String) rq.getAttribute("pathNext");
-
+		
 		if (pathNext != null) {
 			try {
 				User user = us.getUserById(Integer.valueOf(pathNext));
@@ -72,7 +76,13 @@ public class UserDelegate implements Delegatable{
 				rs.sendError(404);
 			}
 		} else {
-			List<User> users = us.getUsers();
+			List<User> users = null;
+			try {
+				users = us.getUsersByRole(rd.getRoleById(1));
+			} catch (RoleNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			try (PrintWriter pw = rs.getWriter()) {
 				pw.write(new ObjectMapper().writeValueAsString(users));
 				log.info("User with token " + token + " queried " + users + " from the user database.");

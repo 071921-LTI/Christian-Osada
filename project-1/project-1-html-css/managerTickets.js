@@ -49,7 +49,6 @@ async function showSomeTickets (){
     signal = 1;
     console.log('here')
     let number = document.getElementById('chosenId').value;
-    document.getElementById('chosenId').value = "";
     console.log(number)
     let authToken = sessionStorage.getItem("token");
     let apiURL = 'http://localhost:8080/project-1/reimbursements/' + number;

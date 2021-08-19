@@ -71,10 +71,5 @@ function updateUser() {
 
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.setRequestHeader("Authorization", authToken);
-    // let requestBody = `id=${id}&firstName=${firstName}&lastName=${lastName}&email=${emailL}`;
     xhr.send(JSON.stringify(user));
-}
-
-function logout() {
-    window.location.href = 'login.html';
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.one.daos.UserDao;
 import com.one.daos.UserHibernate;
 import com.one.exceptions.UserNotFoundException;
+import com.one.models.Role;
 import com.one.models.User;
 
 public class UserServiceImpl implements UserServices{
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserServices{
 	public List<User> getUsers() {
 		return ud.getUsers();
 	}
+	@Override
+	public List<User> getUsersByRole(Role role) {
+		return ud.getUsersByRole(role);
+	}
 	public boolean addUser(User user) {
 		return ud.addUser(user);
 	}
@@ -29,4 +34,5 @@ public class UserServiceImpl implements UserServices{
 	public boolean updateUser(User user) throws UserNotFoundException {
 		return ud.updateUser(user);
 	}
+
 }
