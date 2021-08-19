@@ -49,6 +49,17 @@ public class Driver {
 //			td.addType(new Type ("Deductible"));
 //			td.addType(new Type ("Medical"));
 //			td.addType(new Type ("Travel"));
+		
+//			Type t1 = new Type(1, "Lodging");
+//			Type t2 = new Type(2, "Travel");
+//			Type t3 = new Type(3, "Food");
+//			Type t4 = new Type(4, "Other");
+//			
+		
+//				td.updateType(t1);
+//				td.updateType(t2);
+//				td.updateType(t3);
+//				td.updateType(t4);
 //			
 //			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
 //			ud.addUser(new User("username2", "password2", "first2", "last2", "email2", rd.getRoleById(1)));

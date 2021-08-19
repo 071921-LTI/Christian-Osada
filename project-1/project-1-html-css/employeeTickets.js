@@ -1,5 +1,6 @@
 document.getElementById('newTicket').addEventListener("click", newTicket);
 
+//Set up url for call to database for ticket info
 function showMyTickets() {
     let authToken = sessionStorage.getItem("token");
     let tArr = authToken.split(":");
@@ -8,6 +9,7 @@ function showMyTickets() {
     showTickets(apiURL, authToken);
 }
 
+//Make a call to database for all current ticket info
 async function showTickets(url, authToken) {
 
 let apiURL = url;
@@ -30,6 +32,7 @@ header.append('Authorization', authToken);
     }
 }
 
+//Create a new ticket using given information
 function newTicket() {
     let amount = document.getElementById("amountp").value;
     let type = document.getElementById("typep").value;
@@ -70,23 +73,24 @@ function newTicket() {
 }
 
 
-
+//Replace current table body with new one based on given JSON data
 function createTable(data) {
     let oldBody = document.getElementById('tbody');
 
     var mytbl = document.getElementById("table");
     mytbl.getElementsByTagName("tbody")[0].innerHTML = mytbl.rows[0].innerHTML;
+    // document.getElementById("myTable").deleteRow(0);
 
+    //Insert JSON array data [i] from GET onto table
     for (let i = 0; i < data.length; i++) {
         addRow(oldBody, data[i])
     }
 }
 
-
-
-//insert JSON data from GET onto table
+//Function that creates a new row, inserts to JSON data into it, then appends the row to the botom ofthe table
 function addRow(tableID, data) {
     let newRow = tableID.insertRow(-1);
+    
   
     let newCell0 = newRow.insertCell(0);
     let newText0 = document.createTextNode(data.id);

@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 
 import com.one.exceptions.TypeNotFoundException;
 import com.one.models.Type;
-import com.one.models.User;
 import com.one.util.HibernateUtil;
 
 public class TypeHibernate implements TypeDao{
@@ -42,5 +41,15 @@ public class TypeHibernate implements TypeDao{
 			tx.commit();
 		}
 		return t;
+	}
+	
+	@Override
+	public boolean updateType(Type t) throws TypeNotFoundException {
+		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
+			Transaction tx = ss.beginTransaction();
+			ss.update(t);
+			tx.commit();
+		}
+		return true;
 	}
 }

@@ -1,51 +1,64 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ERS Reimbursement Site</title>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" href="styles/employee.css">
+      <title>ERS Reimbursement Site</title>
+      <meta charset="UTF-8" />
+      <link rel="stylesheet" href="styles/employeeTickets.css">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     
     <div class="topnav">
-        <a class="active" href="employee.html">Home</a>
-        <a class="active" href="employeeTickets.html">Current Tickets</a>
-        <a class="active" href="login.html">Logout</a>
+      <a class="active" href="employee.html">Home</a>
+      <a class="active" href="employeeTickets.html">Current Tickets</a>
+      <div class="topnav-right">
+          <a class="active" href="login.html">Logout</a>
       </div>
+    </div>
       
       <div id=requestLabel>
-        <label><b>Ticket Page</b></label>
+        <h2><b>Ticket Page</b></h2>
       </div>
 
       <p></p>
 
-      <table id='table'style="width: 100%">
-        <thead>
-             <tr>
-                  <th>Id</th>
-                  <th>Amount</th>
-                  <th>Type</th>
-                  <th>Description</th>
-                  <th>Submitted</th>
-                  <th>Resolver</th>
-                  <th>Resolved</th>
-                  <th>Status</th>
-              </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-   </table>
+    <div class="wrapper fadeInDown">
+      <div id=ticketInfo class="container"></div>
+        <body onload=showMyTickets()>
+            <label for="amount"><i><b>Amount:</b></i></label>
+              <input type="text" id="amountp" placeholder="Cash Amount Here"><br>
+            <label for="type"><i><b>Type:</b></i></label>
+              <input type="text"  id="typep" placeholder="Travel, Lodging, Food, or Other"><br>
+            <label for="description"><i><b>Description:</b></i></label>
+              <input type="text"  id="descriptionp" placeholder="Description Here"><br>
+            <button type="button", id="newTicket">Create Ticket</button>
+          </body>
+        </div>
 
-   <p></p>
-   <body onload=showMyTickets()>
+        <p></p>
       
-    <div class="container">
-        <label for="amount"><i><b>Amount:</b></i></label><br>
-        <input type="text" id="amountp" placeholder="Cash Amount Here"></p>
-        <label for="type"><i><b>Type:</b></i></label><br>
-        <input type="text"  id="typep" placeholder="Business, Deductible, Travel, or Medical"></p></p>
-        <label for="description"><i><b>Description:</b></i></label><br>
-        <input type="text"  id="descriptionp" placeholder="Description Here"></p>
-    </body>
-    <button type="button", id="newTicket">Create Ticket</button>
+        <table class="table table-striped" id='table' style="width: 100%">
+          <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">Submitted</th>
+                <th scope="col">Resolver</th>
+                <th scope="col">Resolved</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+          <tbody id="tbody">
+          </tbody>
+        </table>  
+      </div>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="employeeTickets.js"></script>
