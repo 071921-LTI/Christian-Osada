@@ -8,22 +8,35 @@
 
     <div class="topnav">
         <a class="active" href="manager.html">Home</a>
-        <a class="active" href="managerTickets.html">Tickets</a>
+        <a class="active" href="managerTickets.html">Employee Tickets</a>
       </div>
 
-    <body>
+    <body onload="getData()">
         <div class="container">
             <div id=requestLabel>
                 <label><b>Manager Homepage</b></label>
             </div>
 
-            <div id=request>
-                <input type="text" placeholder="Enter Request Id" name="requestA" required>
-            </div>
-        </div>
+            <p></p>
 
-        <button type="button", id="getData">Display Information</button>
+            <label for="id"><i><b>ID:</b></i></label><br>
+            <p id="idp"></p>
+            <label for="firstName"><i><b>First Name:</b></i></label><br>
+                <input type="text" id="firstNamep"></p>
+            <label for="lastName"><i><b>Last Name:</b></i></label><br>
+                <input type="text" id="lastNamep"></p>
+            <label for="email"><i><b>Email:</b></i></label><br>
+                <input type="text" id="emailp"></p>
+            <label for="role"><i><b>Role:</b></i></label><br>
+            <div id="role", contenteditable="false", value="value">
+                <p id="rolep"></p>
+            </div>
+
+            <p></p>
+
+        <button type="button", id="updateUser">Update Information</button>
+        <button type="button", id="getData">Reset Information</button><br>
         <button type="button", id="logout">Logout</button>
-        <script src="manager.js"></script>
+        <script src="userInfo.js"></script>
     </body>
 </html>

@@ -4,8 +4,7 @@ function login(event) {
     event.preventDefault();
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
-    console.log(username);
-    console.log(password);
+
     let xhr = new XMLHttpRequest();
     
     xhr.open("POST", "http://localhost:8080/project-1/users");
@@ -26,7 +25,6 @@ function login(event) {
                 window.location.href = 'manager.html';
             }
             
-
         } else if (xhr.readyState === 4){
             console.log('Something went wrong...');
         }

@@ -5,14 +5,46 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="styles/employee.css">
     </head>
-
+    
     <div class="topnav">
         <a class="active" href="employee.html">Home</a>
-        <a class="active" href="employeeTickets.html">Tickets</a>
+        <a class="active" href="employeeTickets.html">Current Tickets</a>
+      </div>
+      
+      <div id=requestLabel>
+        <label><b>Ticket Page</b></label>
       </div>
 
-      <button type="button", id="showTickets">See Tickets</button>
-      <script src="employeeTickets.js"></script>
-    <body>
+      <p></p>
+
+      <table id='table'style="width: 100%">
+        <thead>
+             <tr>
+                  <th>Id</th>
+                  <th>Amount</th>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Submitted</th>
+                  <th>Resolver</th>
+                  <th>Resolved</th>
+                  <th>Status</th>
+              </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+   </table>
+
+   <p></p>
+   <body onload=showTickets() onload=getId();>
+    <div class="container">
+        <label for="amount"><i><b>Amount:</b></i></label><br>
+        <input type="text" id="amountp" placeholder="Cash Amount Here"></p>
+        <label for="type"><i><b>Type:</b></i></label><br>
+        <input type="text"  id="typep" placeholder="Business, Deductible, Travel, or Medical"></p></p>
+        <label for="description"><i><b>Description:</b></i></label><br>
+        <input type="text"  id="descriptionp" placeholder="Description Here"></p>
     </body>
+   <button type="button", id="newTicket">Create Ticket</button>
+
+      <script src="ticketInfo.js"></script>
 </html>
