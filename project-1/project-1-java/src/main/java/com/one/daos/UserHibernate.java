@@ -9,6 +9,8 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.one.exceptions.UserNotFoundException;
+import com.one.models.Reimbursement;
+import com.one.models.Role;
 import com.one.models.User;
 import com.one.util.HibernateUtil;
 
@@ -42,6 +44,17 @@ public class UserHibernate implements UserDao{
 			u = ss.createQuery("FROM User", User.class).list();
 		}
 		return u;
+	}
+	
+	@Override
+	public List<User> getUsersByRole(Role role) {
+		List<User> r = null;
+		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
+			Query query = ss.createQuery("FROM User WHERE role = :role");
+			query.setParameter("role", role);
+			r = query.list();
+		}
+		return r;
 	}
 
 	@Override

@@ -1,5 +1,4 @@
 document.getElementById('getData').addEventListener("click", getData);
-document.getElementById('logout').addEventListener("click", logout);
 
 async function getData() {
 
@@ -24,7 +23,3 @@ async function getData() {
             console.log('Unable to retrieve data.')
         }
     }
-
-function logout() {
-    window.location.href = 'login.html';
-}
