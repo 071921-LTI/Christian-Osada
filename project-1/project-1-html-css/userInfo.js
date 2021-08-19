@@ -28,19 +28,19 @@ header.append('Authorization', token);
 }
 
 function populateUserInfo(response) {
-    document.getElementById("idp").innerText = response.id;
-    document.getElementById("firstNamep").innerText = response.firstName;
-    document.getElementById("lastNamep").innerText = response.lastName;
-    document.getElementById("emailp").innerText = response.email;
-    document.getElementById("rolep").innerText = response.role.role;
+    document.getElementById("idp").innerHTML = response.id;
+    document.getElementById("firstNamep").value = response.firstName;
+    document.getElementById("lastNamep").value = response.lastName;
+    document.getElementById("emailp").value = response.email;
+    document.getElementById("rolep").innerHTML = response.role.role;
 }
 
 function updateUser() {
 
     let id = document.getElementById("idp").innerHTML;
-    let firstName = document.getElementById("firstNamep").innerHTML;
-    let lastName = document.getElementById("lastNamep").innerHTML;
-    let email = document.getElementById("emailp").innerHTML;
+    let firstName = document.getElementById("firstNamep").value;
+    let lastName = document.getElementById("lastNamep").value;
+    let email = document.getElementById("emailp").value;
 
     console.log(id);
     console.log(firstName);

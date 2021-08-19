@@ -3,6 +3,8 @@ package com.one.delegates;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,16 +15,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.one.daos.StatusDao;
+import com.one.daos.StatusHibernate;
 import com.one.exceptions.ReimbursementNotFoundException;
+import com.one.exceptions.StatusNotFoundException;
+import com.one.exceptions.TypeNotFoundException;
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.Reimbursement;
-import com.one.models.User;
+import com.one.models.Type;
 import com.one.services.AuthService;
 import com.one.services.AuthServiceImpl;
 import com.one.services.ReimbursementService;
 import com.one.services.ReimbursementServiceImpl;
 import com.one.services.UserServiceImpl;
 import com.one.services.UserServices;
+import com.one.daos.TypeDao;
+import com.one.daos.TypeHibernate;
 
 public class ReimbursementDelegate implements Delegatable {
 	
@@ -30,6 +38,9 @@ public class ReimbursementDelegate implements Delegatable {
 	ReimbursementService rmd = new ReimbursementServiceImpl();
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
+	StatusDao sd = new StatusHibernate();
+
+	TypeDao td = new TypeHibernate();
 	
 	
 	@Override
@@ -95,16 +106,35 @@ public class ReimbursementDelegate implements Delegatable {
 	public void handlePost(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handlePost");
 
+		
 		InputStream request = rq.getInputStream();
 		// Converts the request body into a User.class object
 		Reimbursement reimbursement = new ObjectMapper().readValue(request, Reimbursement.class);
-		System.out.println(token);
+		
+		System.out.println(reimbursement.getId());
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());
+		
+		Type type = reimbursement.getType();
+		System.out.println(type);
+		
 		try {
+			reimbursement.setSubmitted(timestamp);
 			reimbursement.setAuthor(au.getTokenUser(token));
-		} catch (UserNotFoundException e) {
+			reimbursement.setStatus(sd.getStatusById(1));
+			reimbursement.setType(td.getTypeByName(type.getType()));
+		} catch (UserNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (StatusNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TypeNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println(reimbursement);
 		
 		if (!rmd.addReimbursement(reimbursement)) {
 			rs.sendError(400, "Unable to add user.");

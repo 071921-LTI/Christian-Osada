@@ -1,10 +1,14 @@
 package com.one.daos;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import com.one.exceptions.TypeNotFoundException;
 import com.one.models.Type;
+import com.one.models.User;
 import com.one.util.HibernateUtil;
 
 public class TypeHibernate implements TypeDao{
@@ -22,7 +26,10 @@ public class TypeHibernate implements TypeDao{
 	public Type getTypeByName(String type) throws TypeNotFoundException {
 		Type t = null;
 		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
-			t = ss.get(Type.class, type);
+	        Query query = ss.createQuery("FROM Type WHERE type = :type");
+	        query.setParameter("type", type);
+	        List list = query.list();
+	        t = (Type) list.get(0);
 		}
 		return t;
 	}	
