@@ -22,7 +22,9 @@ import com.one.exceptions.StatusNotFoundException;
 import com.one.exceptions.TypeNotFoundException;
 import com.one.exceptions.UserNotFoundException;
 import com.one.models.Reimbursement;
+import com.one.models.Status;
 import com.one.models.Type;
+import com.one.models.User;
 import com.one.services.AuthService;
 import com.one.services.AuthServiceImpl;
 import com.one.services.ReimbursementService;
@@ -35,11 +37,10 @@ import com.one.daos.TypeHibernate;
 public class ReimbursementDelegate implements Delegatable {
 	
 	private static Logger log = LogManager.getRootLogger();
-	ReimbursementService rmd = new ReimbursementServiceImpl();
+	ReimbursementService rms = new ReimbursementServiceImpl();
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
 	StatusDao sd = new StatusHibernate();
-
 	TypeDao td = new TypeHibernate();
 	
 	
@@ -77,7 +78,7 @@ public class ReimbursementDelegate implements Delegatable {
 		if (pathNext != null) {
 			List<Reimbursement> reimbursements = null;
 			try {
-				reimbursements = rmd.getReimbursementsbyAuthor(us.getUserById(Integer.valueOf(pathNext)));
+				reimbursements = rms.getReimbursementsbyAuthor(us.getUserById(Integer.valueOf(pathNext)));
 			} catch (NumberFormatException | UserNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -88,7 +89,7 @@ public class ReimbursementDelegate implements Delegatable {
 			}
 
 		} else {
-			List<Reimbursement> reimbursements = rmd.getReimbursements();
+			List<Reimbursement> reimbursements = rms.getReimbursements();
 			try (PrintWriter pw = rs.getWriter()) {
 				pw.write(new ObjectMapper().writeValueAsString(reimbursements));
 				log.info("User with token " + token + " queried the reimbursement database for" + reimbursements + ".");
@@ -100,6 +101,40 @@ public class ReimbursementDelegate implements Delegatable {
 	public void handlePut(HttpServletRequest rq, HttpServletResponse rs, String token) throws ServletException, IOException {
 		System.out.println("In handlePut");
 
+		InputStream request = rq.getInputStream();
+		Reimbursement statusChange = new ObjectMapper().readValue(request, Reimbursement.class);
+		int id = statusChange.getId();
+		
+		System.out.println(id);
+		System.out.println();
+		Status statusBad = statusChange.getStatus();
+		String stat = statusBad.getStatus();
+		
+		Date date = new Date();
+		Timestamp timestamp = new Timestamp(date.getTime());
+		
+		
+		try {
+			Status statusGood = sd.getStatusByName(stat);
+			Reimbursement reimbursement = rms.getReimbursementById(id);
+			reimbursement.setStatus(statusGood);
+			reimbursement.setResolver(au.getTokenUser(token));
+			reimbursement.setResolved(timestamp);
+			
+			rms.updateReimbursement(reimbursement);
+			rs.setStatus(200);
+			log.info("User with token " + token + " changed reimbursement information to " + reimbursement 
+					+ " in the reimbursement database.");
+		} catch (ReimbursementNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StatusNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -136,7 +171,7 @@ public class ReimbursementDelegate implements Delegatable {
 		
 		System.out.println(reimbursement);
 		
-		if (!rmd.addReimbursement(reimbursement)) {
+		if (!rms.addReimbursement(reimbursement)) {
 			rs.sendError(400, "Unable to add user.");
 		} else {
 			rs.setStatus(201);
@@ -152,7 +187,7 @@ public class ReimbursementDelegate implements Delegatable {
 		Reimbursement reimbursement = new ObjectMapper().readValue(request, Reimbursement.class);
 		
 		try {
-			if (!rmd.deleteReimbursement(reimbursement)) {
+			if (!rms.deleteReimbursement(reimbursement)) {
 				rs.sendError(400, "Unable to add user.");
 			} else {
 				rs.setStatus(201);
