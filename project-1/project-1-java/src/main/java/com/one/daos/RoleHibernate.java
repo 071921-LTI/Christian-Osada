@@ -4,7 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.one.exceptions.RoleNotFoundException;
+import com.one.exceptions.UserNotFoundException;
 import com.one.models.Role;
+import com.one.models.User;
 import com.one.util.HibernateUtil;
 
 public class RoleHibernate implements RoleDao {
@@ -36,5 +38,14 @@ public class RoleHibernate implements RoleDao {
 		}
 		return r;
 	}
-
+	
+	@Override
+	public boolean updateRole(Role r) throws RoleNotFoundException {
+		try(Session ss = HibernateUtil.getSessionFactory().openSession()){
+			Transaction tx = ss.beginTransaction();
+			ss.update(r);
+			tx.commit();
+		}
+		return true;
+	}
 }

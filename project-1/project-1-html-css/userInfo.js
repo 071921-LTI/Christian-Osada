@@ -1,7 +1,5 @@
 document.getElementById('getData').addEventListener("click", getData);
 document.getElementById('updateUser').addEventListener("click", updateUser);
-document.getElementById('logout').addEventListener("click", logout);
-
 
 async function getData() {
 

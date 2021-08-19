@@ -7,4 +7,5 @@ public interface TypeDao {
 	public abstract Type getTypeById(int id) throws TypeNotFoundException;
 	public abstract Type getTypeByName(String type) throws TypeNotFoundException;
 	public abstract Type addType(Type t) throws TypeNotFoundException;
+	public abstract boolean updateType(Type t) throws TypeNotFoundException;
 }

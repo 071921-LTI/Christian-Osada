@@ -110,5 +110,4 @@ public class UserHibernate implements UserDao{
 		}
 		return true;
 	}
-
 }
