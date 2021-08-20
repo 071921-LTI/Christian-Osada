@@ -26,7 +26,8 @@ import com.one.services.UserServices;
 
 public class UserDelegate implements Delegatable{
 	
-	private static Logger log = LogManager.getRootLogger();
+	final static Logger log = LogManager.getLogger(UserServices.class);
+	
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
 	RoleDao rd = new RoleHibernate();
