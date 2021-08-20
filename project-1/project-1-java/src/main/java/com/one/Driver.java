@@ -63,7 +63,12 @@ public class Driver {
 //			
 //			ud.addUser(new User("username", "password", "first", "last", "email", rd.getRoleById(1)));
 //			ud.addUser(new User("username2", "password2", "first2", "last2", "email2", rd.getRoleById(1)));
-//			ud.addUser(new User("manager", "manager", "managerFirst", "managerLast", "managerEmail", rd.getRoleById(2)));
+			try {
+				ud.addUser(new User("employee", "employee", "Christian", "Osada", "cosada@gmail.com", rd.getRoleById(1)));
+			} catch (RoleNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 //			
 //			rmd.addReimbursement(u1);
 //			rmd.addReimbursement(u2);

@@ -17,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.one.daos.StatusDao;
 import com.one.daos.StatusHibernate;
+import com.one.daos.TypeDao;
+import com.one.daos.TypeHibernate;
 import com.one.exceptions.ReimbursementNotFoundException;
 import com.one.exceptions.StatusNotFoundException;
 import com.one.exceptions.TypeNotFoundException;
@@ -24,19 +26,17 @@ import com.one.exceptions.UserNotFoundException;
 import com.one.models.Reimbursement;
 import com.one.models.Status;
 import com.one.models.Type;
-import com.one.models.User;
 import com.one.services.AuthService;
 import com.one.services.AuthServiceImpl;
 import com.one.services.ReimbursementService;
 import com.one.services.ReimbursementServiceImpl;
 import com.one.services.UserServiceImpl;
 import com.one.services.UserServices;
-import com.one.daos.TypeDao;
-import com.one.daos.TypeHibernate;
 
 public class ReimbursementDelegate implements Delegatable {
 	
-	private static Logger log = LogManager.getRootLogger();
+	final static Logger log = LogManager.getLogger(ReimbursementService.class);
+	
 	ReimbursementService rms = new ReimbursementServiceImpl();
 	UserServices us = new UserServiceImpl();
 	AuthService au = new AuthServiceImpl();
@@ -158,6 +158,8 @@ public class ReimbursementDelegate implements Delegatable {
 			reimbursement.setAuthor(au.getTokenUser(token));
 			reimbursement.setStatus(sd.getStatusById(1));
 			reimbursement.setType(td.getTypeByName(type.getType()));
+			log.info("User with token " + token + " added reimbursement with information " + reimbursement 
+					+ " to the reimbursement database.");
 		} catch (UserNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
